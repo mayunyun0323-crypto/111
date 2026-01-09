@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoCredit - 加密货币小额信用贷</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">CryptoCredit</span>
+            </a>
+            <div class="navbar-right">
+                <a href="borrow.html" class="nav-link">借款</a>
+                <a href="dashboard.html" class="nav-link">个人中心</a>
+                <button class="btn btn-outline" id="connectWallet">
+                    <span class="wallet-icon">◉</span>
+                    <span id="walletText">连接钱包</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 黑名单警告横幅 -->
+    <div class="blacklist-banner" id="blacklistBanner">
+        <div class="container">
+            <span class="banner-icon">⚠️</span>
+            <span class="banner-text">
+                您的账户已被列入黑名单，借款功能已禁用。请还清逾期借款后等待解除。
+                <a href="dashboard.html" class="banner-link">查看详情</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- 主要内容区 -->
+    <main class="hero">
+        <div class="container hero-content">
+            <div class="hero-badge">DeFi 信用借贷</div>
+            <h1 class="hero-title">
+                无抵押，即时借款
+            </h1>
+            <p class="hero-subtitle">
+                基于链上信用评估，最高可借 <span class="highlight">5,000 USDT</span>
+            </p>
+            
+            <div class="hero-actions">
+                <button class="btn btn-primary btn-large" id="borrowBtn">
+                    立即借款
+                    <span class="btn-arrow">→</span>
+                </button>
+                <a href="dashboard.html" class="btn btn-ghost btn-large">
+                    查账还款
+                </a>
+            </div>
+
+            <!-- 特点展示 -->
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">🔓</div>
+                    <div class="feature-text">
+                        <span class="feature-title">无需抵押</span>
+                        <span class="feature-desc">信用借款，无需锁仓</span>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-text">
+                        <span class="feature-title">秒级到账</span>
+                        <span class="feature-desc">审核通过即时放款</span>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-text">
+                        <span class="feature-title">灵活还款</span>
+                        <span class="feature-desc">支持提前还款</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 背景装饰 -->
+        <div class="hero-bg">
+            <div class="bg-gradient"></div>
+            <div class="bg-grid"></div>
+        </div>
+    </main>
+
+    <!-- 数据统计 -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">$2.5M+</div>
+                    <div class="stat-label">累计放款</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">1,200+</div>
+                    <div class="stat-label">活跃用户</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">8%</div>
+                    <div class="stat-label">最低年化</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">99.2%</div>
+                    <div class="stat-label">还款率</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 如何运作 -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">如何借款</h2>
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-number">01</div>
+                    <h3 class="step-title">连接钱包</h3>
+                    <p class="step-desc">支持 MetaMask、WalletConnect 等主流钱包</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">02</div>
+                    <h3 class="step-title">信用评估</h3>
+                    <p class="step-desc">系统自动分析链上数据生成信用评分</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">03</div>
+                    <h3 class="step-title">确认借款</h3>
+                    <p class="step-desc">选择金额和期限，签名确认即可</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">04</div>
+                    <h3 class="step-title">资金到账</h3>
+                    <p class="step-desc">USDT 直接转入您的钱包地址</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">CryptoCredit</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">文档</a>
+                <a href="#">条款</a>
+                <a href="#">隐私</a>
+                <a href="#">联系我们</a>
+            </div>
+            <div class="footer-copy">
+                © 2026 CryptoCredit. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

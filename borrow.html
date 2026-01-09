@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>借款 - CryptoCredit</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="borrow.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">CryptoCredit</span>
+            </a>
+            <div class="navbar-right">
+                <a href="borrow.html" class="nav-link active">借款</a>
+                <a href="dashboard.html" class="nav-link">个人中心</a>
+                <button class="btn btn-outline" id="connectWallet">
+                    <span class="wallet-icon">◉</span>
+                    <span id="walletText">连接钱包</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 黑名单警告横幅 -->
+    <div class="blacklist-banner" id="blacklistBanner">
+        <div class="container">
+            <span class="banner-icon">⚠️</span>
+            <span class="banner-text">
+                您的账户已被列入黑名单，借款功能已禁用。
+                <a href="dashboard.html" class="banner-link">查看详情</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <main class="borrow-page">
+        <div class="container">
+            <!-- 黑名单全屏提示 -->
+            <div class="blacklist-prompt" id="blacklistPrompt" style="display: none;">
+                <div class="blacklist-card">
+                    <div class="blacklist-icon">🚫</div>
+                    <h2>账户已被限制</h2>
+                    <p class="blacklist-reason">您的账户因逾期超过30天已被列入黑名单</p>
+                    
+                    <div class="blacklist-info">
+                        <div class="info-item">
+                            <span class="info-label">待还款金额</span>
+                            <span class="info-value" id="blacklistDebt">-- USDT</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">逾期借款</span>
+                            <span class="info-value" id="blacklistLoans">-- 笔</span>
+                        </div>
+                    </div>
+                    
+                    <div class="blacklist-steps">
+                        <h4>如何解除黑名单：</h4>
+                        <ol>
+                            <li>还清所有逾期借款（本金 + 利息 + 滞纳金）</li>
+                            <li>等待 30 天冷静期</li>
+                            <li>信用分将从 300 分重新开始累积</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="blacklist-actions">
+                        <a href="dashboard.html" class="btn btn-primary">前往还款</a>
+                        <button class="btn btn-outline" onclick="showToast('客服功能开发中')">联系客服</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 未连接钱包提示 -->
+            <div class="connect-prompt" id="connectPrompt">
+                <div class="prompt-card">
+                    <div class="prompt-icon">🔗</div>
+                    <h2>连接钱包开始借款</h2>
+                    <p>请先连接您的钱包，系统将自动评估您的链上信用</p>
+                    <button class="btn btn-primary btn-large" id="promptConnectBtn">
+                        连接钱包
+                    </button>
+                </div>
+            </div>
+
+            <!-- 借款主界面 -->
+            <div class="borrow-main" id="borrowMain" style="display: none;">
+                <div class="borrow-grid">
+                    <!-- 左侧：信用评分 -->
+                    <div class="credit-section">
+                        <div class="section-card">
+                            <h3 class="card-title">信用评分</h3>
+                            
+                            <!-- 信用分圆环 -->
+                            <div class="credit-score-wrapper">
+                                <div class="credit-ring">
+                                    <svg viewBox="0 0 200 200">
+                                        <circle class="ring-bg" cx="100" cy="100" r="85"/>
+                                        <circle class="ring-progress" cx="100" cy="100" r="85" id="scoreRing"/>
+                                    </svg>
+                                    <div class="score-inner">
+                                        <span class="score-value" id="scoreValue">--</span>
+                                        <span class="score-label">信用分</span>
+                                    </div>
+                                </div>
+                                <div class="credit-grade" id="creditGrade">
+                                    <span class="grade-badge">--</span>
+                                    <span class="grade-text">评估中...</span>
+                                </div>
+                            </div>
+
+                            <!-- 信用明细 -->
+                            <div class="credit-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">钱包历史</span>
+                                    <div class="detail-bar">
+                                        <div class="bar-fill" id="barWallet" style="width: 0%"></div>
+                                    </div>
+                                    <span class="detail-score" id="scoreWallet">--</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">交易记录</span>
+                                    <div class="detail-bar">
+                                        <div class="bar-fill" id="barTransaction" style="width: 0%"></div>
+                                    </div>
+                                    <span class="detail-score" id="scoreTransaction">--</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">资产持有</span>
+                                    <div class="detail-bar">
+                                        <div class="bar-fill" id="barAsset" style="width: 0%"></div>
+                                    </div>
+                                    <span class="detail-score" id="scoreAsset">--</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">DeFi参与</span>
+                                    <div class="detail-bar">
+                                        <div class="bar-fill" id="barDefi" style="width: 0%"></div>
+                                    </div>
+                                    <span class="detail-score" id="scoreDefi">--</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">还款记录</span>
+                                    <div class="detail-bar">
+                                        <div class="bar-fill" id="barRepay" style="width: 0%"></div>
+                                    </div>
+                                    <span class="detail-score" id="scoreRepay">--</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 额度信息 -->
+                        <div class="section-card quota-card">
+                            <div class="quota-item">
+                                <span class="quota-label">可借额度</span>
+                                <span class="quota-value" id="maxQuota">-- USDT</span>
+                            </div>
+                            <div class="quota-item">
+                                <span class="quota-label">年化利率</span>
+                                <span class="quota-value highlight" id="interestRate">--%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧：借款表单 -->
+                    <div class="borrow-section">
+                        <div class="section-card">
+                            <h3 class="card-title">借款申请</h3>
+                            
+                            <form class="borrow-form" id="borrowForm">
+                                <!-- 借款金额 -->
+                                <div class="form-group">
+                                    <label class="form-label">借款金额</label>
+                                    <div class="amount-input-wrapper">
+                                        <input 
+                                            type="number" 
+                                            class="amount-input" 
+                                            id="borrowAmount" 
+                                            value="1000"
+                                            min="100"
+                                            max="5000"
+                                            step="100"
+                                        >
+                                        <span class="amount-suffix">USDT</span>
+                                    </div>
+                                    <div class="slider-wrapper">
+                                        <input 
+                                            type="range" 
+                                            class="amount-slider" 
+                                            id="amountSlider"
+                                            min="100"
+                                            max="5000"
+                                            step="100"
+                                            value="1000"
+                                        >
+                                        <div class="slider-labels">
+                                            <span>100</span>
+                                            <span id="maxSliderLabel">5000</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 借款期限 -->
+                                <div class="form-group">
+                                    <label class="form-label">借款期限</label>
+                                    <div class="term-options">
+                                        <label class="term-option">
+                                            <input type="radio" name="term" value="7">
+                                            <span class="term-btn">7天</span>
+                                        </label>
+                                        <label class="term-option">
+                                            <input type="radio" name="term" value="14">
+                                            <span class="term-btn">14天</span>
+                                        </label>
+                                        <label class="term-option">
+                                            <input type="radio" name="term" value="30" checked>
+                                            <span class="term-btn">30天</span>
+                                        </label>
+                                        <label class="term-option">
+                                            <input type="radio" name="term" value="90">
+                                            <span class="term-btn">90天</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- 选择币种 -->
+                                <div class="form-group">
+                                    <label class="form-label">收款币种</label>
+                                    <div class="token-options">
+                                        <label class="token-option">
+                                            <input type="radio" name="token" value="USDT" checked>
+                                            <span class="token-btn">
+                                                <span class="token-icon">₮</span>
+                                                USDT
+                                            </span>
+                                        </label>
+                                        <label class="token-option">
+                                            <input type="radio" name="token" value="USDC">
+                                            <span class="token-btn">
+                                                <span class="token-icon">$</span>
+                                                USDC
+                                            </span>
+                                        </label>
+                                        <label class="token-option">
+                                            <input type="radio" name="token" value="DAI">
+                                            <span class="token-btn">
+                                                <span class="token-icon">◈</span>
+                                                DAI
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- 费用明细 -->
+                                <div class="form-group">
+                                    <label class="form-label">费用明细</label>
+                                    <div class="fee-details">
+                                        <div class="fee-row">
+                                            <span class="fee-label">借款金额</span>
+                                            <span class="fee-value" id="feeAmount">1,000 USDT</span>
+                                        </div>
+                                        <div class="fee-row">
+                                            <span class="fee-label">借款期限</span>
+                                            <span class="fee-value" id="feeTerm">30 天</span>
+                                        </div>
+                                        <div class="fee-row">
+                                            <span class="fee-label">年化利率</span>
+                                            <span class="fee-value" id="feeRate">8%</span>
+                                        </div>
+                                        <div class="fee-row">
+                                            <span class="fee-label">借款利息</span>
+                                            <span class="fee-value accent" id="feeInterest">6.58 USDT</span>
+                                        </div>
+                                        <div class="fee-divider"></div>
+                                        <div class="fee-row total">
+                                            <span class="fee-label">到期还款</span>
+                                            <span class="fee-value" id="feeTotal">1,006.58 USDT</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 确认借款 -->
+                                <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                                    确认借款
+                                </button>
+
+                                <p class="form-hint">
+                                    点击确认借款即表示您同意 <a href="#">借款协议</a>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 借款成功弹窗 -->
+    <div class="modal" id="successModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-icon success">✓</div>
+            <h3 class="modal-title">借款成功</h3>
+            <p class="modal-desc">
+                <span id="modalAmount">1,000 USDT</span> 已发放至您的钱包
+            </p>
+            <div class="modal-info">
+                <div class="info-row">
+                    <span>还款日期</span>
+                    <span id="modalDueDate">2026-02-07</span>
+                </div>
+                <div class="info-row">
+                    <span>还款金额</span>
+                    <span id="modalRepayAmount">1,006.58 USDT</span>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-block" id="modalCloseBtn">
+                我知道了
+            </button>
+        </div>
+    </div>
+
+    <script src="borrow.js"></script>
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - CryptoCredit</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">CryptoCredit</span>
+            </a>
+            <div class="navbar-right">
+                <a href="borrow.html" class="nav-link">借款</a>
+                <a href="dashboard.html" class="nav-link active">个人中心</a>
+                <button class="btn btn-outline" id="connectWallet">
+                    <span class="wallet-icon">◉</span>
+                    <span id="walletText">连接钱包</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 黑名单警告横幅 -->
+    <div class="blacklist-banner" id="blacklistBanner">
+        <div class="container">
+            <span class="banner-icon">⚠️</span>
+            <span class="banner-text">
+                您的账户已被列入黑名单，借款功能已禁用。请还清逾期借款后等待解除。
+            </span>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <main class="dashboard-page">
+        <div class="container">
+            <!-- 未连接钱包提示 -->
+            <div class="connect-prompt" id="connectPrompt">
+                <div class="prompt-card">
+                    <div class="prompt-icon">👤</div>
+                    <h2>查看您的借款记录</h2>
+                    <p>连接钱包后可查看借款状态、还款记录和信用报告</p>
+                    <button class="btn btn-primary btn-large" id="promptConnectBtn">
+                        连接钱包
+                    </button>
+                </div>
+            </div>
+
+            <!-- 仪表盘主界面 -->
+            <div class="dashboard-main" id="dashboardMain" style="display: none;">
+                <!-- 顶部概览卡片 -->
+                <div class="overview-cards">
+                    <div class="overview-card">
+                        <div class="card-icon">💰</div>
+                        <div class="card-info">
+                            <span class="card-label">当前借款</span>
+                            <span class="card-value" id="currentDebt">0 USDT</span>
+                        </div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">📅</div>
+                        <div class="card-info">
+                            <span class="card-label">待还款</span>
+                            <span class="card-value" id="pendingRepay">0 USDT</span>
+                        </div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-info">
+                            <span class="card-label">累计还款</span>
+                            <span class="card-value" id="totalRepaid">0 USDT</span>
+                        </div>
+                    </div>
+                    <div class="overview-card credit-card" id="creditCard">
+                        <div class="card-icon">⭐</div>
+                        <div class="card-info">
+                            <span class="card-label">信用评分</span>
+                            <span class="card-value" id="creditScore">--</span>
+                        </div>
+                        <span class="credit-badge" id="creditBadge">--</span>
+                    </div>
+                </div>
+
+                <!-- 黑名单状态卡片 -->
+                <div class="blacklist-status-card" id="blacklistStatusCard" style="display: none;">
+                    <div class="blacklist-status-header">
+                        <div class="status-icon">🚫</div>
+                        <div class="status-info">
+                            <h3>账户已被限制</h3>
+                            <p>您的账户因逾期超过30天已被列入黑名单</p>
+                        </div>
+                    </div>
+                    <div class="blacklist-status-body">
+                        <div class="status-item">
+                            <span class="item-label">待还款金额</span>
+                            <span class="item-value" id="blStatusDebt">-- USDT</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="item-label">逾期借款</span>
+                            <span class="item-value" id="blStatusLoans">-- 笔</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="item-label">信用状态</span>
+                            <span class="item-value blacklist">黑名单</span>
+                        </div>
+                    </div>
+                    <div class="blacklist-status-footer">
+                        <div class="unlock-steps">
+                            <h4>解除黑名单步骤：</h4>
+                            <div class="step-list">
+                                <div class="step" id="step1">
+                                    <span class="step-num">1</span>
+                                    <span class="step-text">还清所有逾期借款</span>
+                                    <span class="step-status pending">待完成</span>
+                                </div>
+                                <div class="step" id="step2">
+                                    <span class="step-num">2</span>
+                                    <span class="step-text">等待 30 天冷静期</span>
+                                    <span class="step-status pending">待完成</span>
+                                </div>
+                                <div class="step" id="step3">
+                                    <span class="step-num">3</span>
+                                    <span class="step-text">信用分从 300 分重新开始</span>
+                                    <span class="step-status pending">待完成</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 主内容区域 -->
+                <div class="dashboard-grid">
+                    <!-- 左侧：当前借款 -->
+                    <div class="section-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">当前借款</h3>
+                        </div>
+                        
+                        <!-- 无借款状态 -->
+                        <div class="empty-state" id="emptyLoans" style="display: none;">
+                            <div class="empty-icon">📋</div>
+                            <p>暂无进行中的借款</p>
+                            <a href="borrow.html" class="btn btn-primary">立即借款</a>
+                        </div>
+
+                        <!-- 借款列表 -->
+                        <div class="loans-list" id="loansList">
+                            <!-- 借款卡片会通过 JS 动态生成 -->
+                        </div>
+                    </div>
+
+                    <!-- 右侧：信用报告 -->
+                    <div class="section-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">信用报告</h3>
+                        </div>
+                        
+                        <div class="credit-report">
+                            <!-- 信用分展示 -->
+                            <div class="credit-overview">
+                                <div class="credit-ring-small">
+                                    <svg viewBox="0 0 100 100">
+                                        <circle class="ring-bg" cx="50" cy="50" r="42"/>
+                                        <circle class="ring-progress" cx="50" cy="50" r="42" id="creditRing"/>
+                                    </svg>
+                                    <div class="ring-inner">
+                                        <span class="ring-score" id="ringScore">--</span>
+                                    </div>
+                                </div>
+                                <div class="credit-info">
+                                    <div class="credit-grade-display">
+                                        <span class="grade-label">信用等级</span>
+                                        <span class="grade-value" id="gradeValue">--</span>
+                                    </div>
+                                    <div class="credit-quota">
+                                        <span class="quota-label">可用额度</span>
+                                        <span class="quota-value" id="quotaValue">-- USDT</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 信用明细 -->
+                            <div class="credit-breakdown">
+                                <div class="breakdown-item">
+                                    <div class="breakdown-header">
+                                        <span class="breakdown-label">钱包历史</span>
+                                        <span class="breakdown-score" id="bkWallet">--</span>
+                                    </div>
+                                    <div class="breakdown-bar">
+                                        <div class="bar-fill" id="barWallet"></div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-header">
+                                        <span class="breakdown-label">交易记录</span>
+                                        <span class="breakdown-score" id="bkTransaction">--</span>
+                                    </div>
+                                    <div class="breakdown-bar">
+                                        <div class="bar-fill" id="barTransaction"></div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-header">
+                                        <span class="breakdown-label">资产持有</span>
+                                        <span class="breakdown-score" id="bkAsset">--</span>
+                                    </div>
+                                    <div class="breakdown-bar">
+                                        <div class="bar-fill" id="barAsset"></div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-header">
+                                        <span class="breakdown-label">DeFi参与</span>
+                                        <span class="breakdown-score" id="bkDefi">--</span>
+                                    </div>
+                                    <div class="breakdown-bar">
+                                        <div class="bar-fill" id="barDefi"></div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-header">
+                                        <span class="breakdown-label">还款记录</span>
+                                        <span class="breakdown-score" id="bkRepay">--</span>
+                                    </div>
+                                    <div class="breakdown-bar">
+                                        <div class="bar-fill" id="barRepay"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 信用提升建议 -->
+                            <div class="credit-tips">
+                                <h4 class="tips-title">💡 信用提升建议</h4>
+                                <ul class="tips-list" id="tipsList">
+                                    <li>保持定期交易活动</li>
+                                    <li>按时还款，避免逾期</li>
+                                    <li>参与更多 DeFi 协议</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 借款历史 -->
+                <div class="section-panel full-width">
+                    <div class="panel-header">
+                        <h3 class="panel-title">借款历史</h3>
+                        <div class="header-actions">
+                            <select class="filter-select" id="historyFilter">
+                                <option value="all">全部</option>
+                                <option value="active">进行中</option>
+                                <option value="repaid">已还款</option>
+                                <option value="overdue">已逾期</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- 历史记录表格 -->
+                    <div class="history-table-wrapper">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>借款编号</th>
+                                    <th>借款金额</th>
+                                    <th>借款日期</th>
+                                    <th>到期日期</th>
+                                    <th>利息</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <!-- 通过 JS 动态生成 -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 空状态 -->
+                    <div class="empty-history" id="emptyHistory" style="display: none;">
+                        <p>暂无借款记录</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 还款弹窗 -->
+    <div class="modal" id="repayModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">还款确认</h3>
+                <button class="modal-close" id="repayModalClose">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="repay-info">
+                    <div class="repay-row">
+                        <span class="repay-label">借款编号</span>
+                        <span class="repay-value" id="repayLoanId">--</span>
+                    </div>
+                    <div class="repay-row">
+                        <span class="repay-label">借款本金</span>
+                        <span class="repay-value" id="repayPrincipal">-- USDT</span>
+                    </div>
+                    <div class="repay-row">
+                        <span class="repay-label">借款利息</span>
+                        <span class="repay-value" id="repayInterest">-- USDT</span>
+                    </div>
+                    <div class="repay-row">
+                        <span class="repay-label">滞纳金</span>
+                        <span class="repay-value" id="repayPenalty">0 USDT</span>
+                    </div>
+                    <div class="repay-divider"></div>
+                    <div class="repay-row total">
+                        <span class="repay-label">应还总额</span>
+                        <span class="repay-value" id="repayTotal">-- USDT</span>
+                    </div>
+                </div>
+                
+                <div class="repay-balance">
+                    <span class="balance-label">钱包余额</span>
+                    <span class="balance-value" id="walletBalance">-- USDT</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" id="repayCancel">取消</button>
+                <button class="btn btn-primary" id="repayConfirm">确认还款</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 借款详情弹窗 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content detail-modal">
+            <div class="modal-header">
+                <div class="detail-header-left">
+                    <h3 class="modal-title">借款详情</h3>
+                    <span class="detail-loan-id" id="detailLoanId">--</span>
+                </div>
+                <div class="detail-header-right">
+                    <span class="detail-status" id="detailStatus">--</span>
+                    <button class="modal-close" id="detailModalClose">×</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <!-- 金额信息 -->
+                <div class="detail-section">
+                    <h4 class="detail-section-title">💰 金额信息</h4>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">借款本金</span>
+                            <span class="detail-value" id="detailPrincipal">-- USDT</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">年化利率</span>
+                            <span class="detail-value" id="detailRate">--%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">借款利息</span>
+                            <span class="detail-value" id="detailInterest">-- USDT</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">滞纳金</span>
+                            <span class="detail-value penalty" id="detailPenalty">0 USDT</span>
+                        </div>
+                        <div class="detail-item highlight">
+                            <span class="detail-label">应还总额</span>
+                            <span class="detail-value" id="detailTotal">-- USDT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 时间信息 -->
+                <div class="detail-section">
+                    <h4 class="detail-section-title">📅 时间信息</h4>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">借款日期</span>
+                            <span class="detail-value" id="detailBorrowDate">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">到期日期</span>
+                            <span class="detail-value" id="detailDueDate">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">借款期限</span>
+                            <span class="detail-value" id="detailTerm">-- 天</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label" id="detailDaysLabel">剩余天数</span>
+                            <span class="detail-value" id="detailDaysValue">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 还款进度 -->
+                <div class="detail-section">
+                    <h4 class="detail-section-title">📊 还款进度</h4>
+                    <div class="detail-progress">
+                        <div class="progress-bar-large">
+                            <div class="progress-fill-large" id="detailProgressBar"></div>
+                        </div>
+                        <div class="progress-labels">
+                            <span id="detailProgressStart">借款日</span>
+                            <span id="detailProgressEnd">到期日</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 逾期警告 -->
+                <div class="overdue-warning" id="overdueWarning" style="display: none;">
+                    <div class="warning-icon">⚠️</div>
+                    <div class="warning-content">
+                        <span class="warning-title">借款已逾期</span>
+                        <span class="warning-desc" id="overdueDesc">请尽快还款，逾期将影响您的信用评分</span>
+                    </div>
+                </div>
+
+                <!-- 交易信息 -->
+                <div class="detail-section">
+                    <h4 class="detail-section-title">🔗 交易信息</h4>
+                    <div class="detail-tx">
+                        <div class="tx-item">
+                            <span class="tx-label">放款交易</span>
+                            <div class="tx-hash">
+                                <span id="detailTxHash">0x1a2b...3c4d</span>
+                                <button class="copy-btn" id="copyTxHash">复制</button>
+                            </div>
+                        </div>
+                        <div class="tx-item" id="repayTxItem" style="display: none;">
+                            <span class="tx-label">还款交易</span>
+                            <div class="tx-hash">
+                                <span id="detailRepayTxHash">--</span>
+                                <button class="copy-btn" id="copyRepayTxHash">复制</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" id="detailClose">关闭</button>
+                <button class="btn btn-primary" id="detailRepayBtn">立即还款</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 还款成功弹窗 -->
+    <div class="modal" id="successModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-icon success">✓</div>
+            <h3 class="modal-title">还款成功</h3>
+            <p class="modal-desc">您已成功还款，感谢您的信任！</p>
+            <div class="success-info">
+                <div class="info-row">
+                    <span>还款金额</span>
+                    <span id="successAmount">-- USDT</span>
+                </div>
+                <div class="info-row">
+                    <span>信用分变动</span>
+                    <span class="positive" id="successCreditChange">+5</span>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-block" id="successClose">完成</button>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

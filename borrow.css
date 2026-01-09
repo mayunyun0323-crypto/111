@@ -1,0 +1,755 @@
+/* ==================== 借款页面样式 ==================== */
+
+.borrow-page {
+    min-height: 100vh;
+    padding-top: 100px;
+    padding-bottom: 60px;
+}
+
+/* ==================== 黑名单全屏提示 ==================== */
+.blacklist-prompt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 200px);
+}
+
+.blacklist-card {
+    text-align: center;
+    padding: 48px;
+    background: var(--color-card);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: var(--border-radius-lg);
+    max-width: 480px;
+    width: 100%;
+}
+
+.blacklist-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+.blacklist-card h2 {
+    font-size: 28px;
+    margin-bottom: 12px;
+    color: #ef4444;
+}
+
+.blacklist-reason {
+    color: var(--color-text-secondary);
+    margin-bottom: 28px;
+    line-height: 1.6;
+}
+
+.blacklist-info {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+    background: var(--color-bg);
+    border-radius: var(--border-radius);
+    margin-bottom: 28px;
+}
+
+.blacklist-info .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.blacklist-info .info-label {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.blacklist-info .info-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ef4444;
+}
+
+.blacklist-steps {
+    text-align: left;
+    padding: 20px;
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.1);
+    border-radius: var(--border-radius);
+    margin-bottom: 28px;
+}
+
+.blacklist-steps h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--color-text);
+}
+
+.blacklist-steps ol {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.blacklist-steps li {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+}
+
+.blacklist-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.blacklist-actions .btn {
+    min-width: 120px;
+}
+
+/* ==================== 连接钱包提示 ==================== */
+.connect-prompt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 200px);
+}
+
+.prompt-card {
+    text-align: center;
+    padding: 60px;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    max-width: 420px;
+}
+
+.prompt-icon {
+    font-size: 48px;
+    margin-bottom: 24px;
+}
+
+.prompt-card h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.prompt-card p {
+    color: var(--color-text-secondary);
+    margin-bottom: 32px;
+    line-height: 1.6;
+}
+
+/* ==================== 借款主界面布局 ==================== */
+.borrow-grid {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.section-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    padding: 28px;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: var(--color-text-secondary);
+}
+
+/* ==================== 信用评分区域 ==================== */
+.credit-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 信用分圆环 */
+.credit-score-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.credit-ring {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin-bottom: 16px;
+}
+
+.credit-ring svg {
+    transform: rotate(-90deg);
+}
+
+.ring-bg {
+    fill: none;
+    stroke: var(--color-border);
+    stroke-width: 12;
+}
+
+.ring-progress {
+    fill: none;
+    stroke: url(#scoreGradient);
+    stroke-width: 12;
+    stroke-linecap: round;
+    stroke-dasharray: 534;
+    stroke-dashoffset: 534;
+    transition: stroke-dashoffset 1.5s ease;
+}
+
+/* 添加渐变定义 */
+.credit-ring svg {
+    overflow: visible;
+}
+
+.credit-ring svg defs {
+    display: block;
+}
+
+.score-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.score-value {
+    font-size: 48px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff 0%, #a5a5a5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.score-label {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin-top: 4px;
+}
+
+/* 信用等级 */
+.credit-grade {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.grade-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    color: white;
+}
+
+.grade-badge.grade-a { background: linear-gradient(135deg, #22c55e, #16a34a); }
+.grade-badge.grade-b { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.grade-badge.grade-c { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.grade-badge.grade-d { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+.grade-text {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+/* 信用明细 */
+.credit-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.detail-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 40px;
+    align-items: center;
+    gap: 12px;
+}
+
+.detail-label {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.detail-bar {
+    height: 6px;
+    background: var(--color-border);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    border-radius: 3px;
+    transition: width 1s ease;
+}
+
+.detail-score {
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+}
+
+/* 额度卡片 */
+.quota-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+.quota-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.quota-label {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.quota-value {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.quota-value.highlight {
+    color: var(--color-accent);
+}
+
+/* ==================== 借款表单 ==================== */
+.borrow-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+/* 金额输入 */
+.amount-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.amount-input {
+    width: 100%;
+    padding: 16px 80px 16px 20px;
+    font-size: 28px;
+    font-weight: 600;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    color: var(--color-text);
+    outline: none;
+    transition: var(--transition);
+}
+
+.amount-input:focus {
+    border-color: var(--color-primary);
+}
+
+.amount-input::-webkit-outer-spin-button,
+.amount-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.amount-suffix {
+    position: absolute;
+    right: 20px;
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+/* 滑块 */
+.slider-wrapper {
+    padding: 0 4px;
+}
+
+.amount-slider {
+    width: 100%;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--color-border);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+.amount-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.amount-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--color-text-secondary);
+}
+
+/* 期限选择 */
+.term-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.term-option input {
+    display: none;
+}
+
+.term-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.term-btn:hover {
+    border-color: var(--color-primary);
+}
+
+.term-option input:checked + .term-btn {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    border-color: transparent;
+    color: white;
+}
+
+/* 币种选择 */
+.token-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.token-option input {
+    display: none;
+}
+
+.token-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.token-btn:hover {
+    border-color: var(--color-primary);
+}
+
+.token-option input:checked + .token-btn {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--color-primary);
+    color: var(--color-primary-light);
+}
+
+.token-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-border);
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* 费用明细 */
+.fee-details {
+    background: var(--color-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+}
+
+.fee-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.fee-label {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.fee-value {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.fee-value.accent {
+    color: var(--color-accent);
+}
+
+.fee-divider {
+    height: 1px;
+    background: var(--color-border);
+    margin: 12px 0;
+}
+
+.fee-row.total .fee-label,
+.fee-row.total .fee-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+/* 提交按钮 */
+.btn-block {
+    width: 100%;
+    padding: 18px;
+    font-size: 16px;
+}
+
+.form-hint {
+    text-align: center;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.form-hint a {
+    color: var(--color-primary-light);
+    text-decoration: none;
+}
+
+.form-hint a:hover {
+    text-decoration: underline;
+}
+
+/* ==================== 弹窗 ==================== */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    position: relative;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    animation: modalIn 0.3s ease;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    border-radius: 50%;
+}
+
+.modal-icon.success {
+    background: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+}
+
+.modal-title {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.modal-desc {
+    color: var(--color-text-secondary);
+    margin-bottom: 24px;
+}
+
+.modal-desc span {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.modal-info {
+    background: var(--color-bg);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.modal-info .info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.modal-info .info-row span:first-child {
+    color: var(--color-text-secondary);
+}
+
+/* ==================== 响应式设计 ==================== */
+@media (max-width: 900px) {
+    .borrow-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .credit-section {
+        order: 2;
+    }
+    
+    .borrow-section {
+        order: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .borrow-page {
+        padding-top: 80px;
+    }
+    
+    .section-card {
+        padding: 20px;
+    }
+    
+    .term-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .token-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .quota-card {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .amount-input {
+        font-size: 24px;
+        padding: 14px 70px 14px 16px;
+    }
+    
+    .credit-ring {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .score-value {
+        font-size: 40px;
+    }
+}
+
+/* ==================== 加载动画 ==================== */
+.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    border-radius: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.btn.loading {
+    color: transparent;
+}
+
+.btn.loading::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
