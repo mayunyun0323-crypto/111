@@ -16,11 +16,15 @@
                 <span class="logo-text">CryptoCredit</span>
             </a>
             <div class="navbar-right">
-                <a href="borrow.html" class="nav-link">借款</a>
-                <a href="dashboard.html" class="nav-link active">个人中心</a>
+                <a href="borrow.html" class="nav-link" data-lang="borrow">借款</a>
+                <a href="dashboard.html" class="nav-link active" data-lang="dashboard">个人中心</a>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang-switch="zh" onclick="switchLanguage('zh')">中</button>
+                    <button class="lang-btn" data-lang-switch="en" onclick="switchLanguage('en')">EN</button>
+                </div>
                 <button class="btn btn-outline" id="connectWallet">
                     <span class="wallet-icon">◉</span>
-                    <span id="walletText">连接钱包</span>
+                    <span id="walletText" data-lang="connectWallet">连接钱包</span>
                 </button>
             </div>
         </div>
@@ -30,7 +34,7 @@
     <div class="blacklist-banner" id="blacklistBanner">
         <div class="container">
             <span class="banner-icon">⚠️</span>
-            <span class="banner-text">
+            <span class="banner-text" data-lang="blacklistBanner">
                 您的账户已被列入黑名单，借款功能已禁用。请还清逾期借款后等待解除。
             </span>
         </div>
@@ -43,9 +47,9 @@
             <div class="connect-prompt" id="connectPrompt">
                 <div class="prompt-card">
                     <div class="prompt-icon">👤</div>
-                    <h2>查看您的借款记录</h2>
-                    <p>连接钱包后可查看借款状态、还款记录和信用报告</p>
-                    <button class="btn btn-primary btn-large" id="promptConnectBtn">
+                    <h2 data-lang="dashboardPromptTitle">查看您的借款记录</h2>
+                    <p data-lang="dashboardPromptDesc">连接钱包后可查看借款状态、还款记录和信用报告</p>
+                    <button class="btn btn-primary btn-large" id="promptConnectBtn" data-lang="connectWallet">
                         连接钱包
                     </button>
                 </div>
@@ -58,28 +62,28 @@
                     <div class="overview-card">
                         <div class="card-icon">💰</div>
                         <div class="card-info">
-                            <span class="card-label">当前借款</span>
+                            <span class="card-label" data-lang="currentDebt">当前借款</span>
                             <span class="card-value" id="currentDebt">0 USDT</span>
                         </div>
                     </div>
                     <div class="overview-card">
                         <div class="card-icon">📅</div>
                         <div class="card-info">
-                            <span class="card-label">待还款</span>
+                            <span class="card-label" data-lang="pendingRepay">待还款</span>
                             <span class="card-value" id="pendingRepay">0 USDT</span>
                         </div>
                     </div>
                     <div class="overview-card">
                         <div class="card-icon">✅</div>
                         <div class="card-info">
-                            <span class="card-label">累计还款</span>
+                            <span class="card-label" data-lang="totalRepaid">累计还款</span>
                             <span class="card-value" id="totalRepaid">0 USDT</span>
                         </div>
                     </div>
                     <div class="overview-card credit-card" id="creditCard">
                         <div class="card-icon">⭐</div>
                         <div class="card-info">
-                            <span class="card-label">信用评分</span>
+                            <span class="card-label" data-lang="creditScore">信用评分</span>
                             <span class="card-value" id="creditScore">--</span>
                         </div>
                         <span class="credit-badge" id="creditBadge">--</span>
@@ -138,14 +142,14 @@
                     <!-- 左侧：当前借款 -->
                     <div class="section-panel">
                         <div class="panel-header">
-                            <h3 class="panel-title">当前借款</h3>
+                            <h3 class="panel-title" data-lang="currentLoans">当前借款</h3>
                         </div>
                         
                         <!-- 无借款状态 -->
                         <div class="empty-state" id="emptyLoans" style="display: none;">
                             <div class="empty-icon">📋</div>
-                            <p>暂无进行中的借款</p>
-                            <a href="borrow.html" class="btn btn-primary">立即借款</a>
+                            <p data-lang="noActiveLoans">暂无进行中的借款</p>
+                            <a href="borrow.html" class="btn btn-primary" data-lang="borrowNow">立即借款</a>
                         </div>
 
                         <!-- 借款列表 -->
@@ -157,7 +161,7 @@
                     <!-- 右侧：信用报告 -->
                     <div class="section-panel">
                         <div class="panel-header">
-                            <h3 class="panel-title">信用报告</h3>
+                            <h3 class="panel-title" data-lang="creditReport">信用报告</h3>
                         </div>
                         
                         <div class="credit-report">
@@ -249,13 +253,13 @@
                 <!-- 借款历史 -->
                 <div class="section-panel full-width">
                     <div class="panel-header">
-                        <h3 class="panel-title">借款历史</h3>
+                        <h3 class="panel-title" data-lang="loanHistory">借款历史</h3>
                         <div class="header-actions">
                             <select class="filter-select" id="historyFilter">
-                                <option value="all">全部</option>
-                                <option value="active">进行中</option>
-                                <option value="repaid">已还款</option>
-                                <option value="overdue">已逾期</option>
+                                <option value="all" data-lang="filterAll">全部</option>
+                                <option value="active" data-lang="filterActive">进行中</option>
+                                <option value="repaid" data-lang="filterRepaid">已还款</option>
+                                <option value="overdue" data-lang="filterOverdue">已逾期</option>
                             </select>
                         </div>
                     </div>
@@ -265,13 +269,13 @@
                         <table class="history-table">
                             <thead>
                                 <tr>
-                                    <th>借款编号</th>
-                                    <th>借款金额</th>
-                                    <th>借款日期</th>
-                                    <th>到期日期</th>
-                                    <th>利息</th>
-                                    <th>状态</th>
-                                    <th>操作</th>
+                                    <th data-lang="tableId">借款编号</th>
+                                    <th data-lang="tableAmount">借款金额</th>
+                                    <th data-lang="tableBorrowDate">借款日期</th>
+                                    <th data-lang="tableDueDate">到期日期</th>
+                                    <th data-lang="tableInterest">利息</th>
+                                    <th data-lang="tableStatus">状态</th>
+                                    <th data-lang="tableAction">操作</th>
                                 </tr>
                             </thead>
                             <tbody id="historyTableBody">
@@ -471,6 +475,7 @@
         </div>
     </div>
 
+    <script src="lang.js"></script>
     <script src="dashboard.js"></script>
 </body>
 </html>

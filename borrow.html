@@ -16,11 +16,15 @@
                 <span class="logo-text">CryptoCredit</span>
             </a>
             <div class="navbar-right">
-                <a href="borrow.html" class="nav-link active">借款</a>
-                <a href="dashboard.html" class="nav-link">个人中心</a>
+                <a href="borrow.html" class="nav-link active" data-lang="borrow">借款</a>
+                <a href="dashboard.html" class="nav-link" data-lang="dashboard">个人中心</a>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang-switch="zh" onclick="switchLanguage('zh')">中</button>
+                    <button class="lang-btn" data-lang-switch="en" onclick="switchLanguage('en')">EN</button>
+                </div>
                 <button class="btn btn-outline" id="connectWallet">
                     <span class="wallet-icon">◉</span>
-                    <span id="walletText">连接钱包</span>
+                    <span id="walletText" data-lang="connectWallet">连接钱包</span>
                 </button>
             </div>
         </div>
@@ -31,8 +35,8 @@
         <div class="container">
             <span class="banner-icon">⚠️</span>
             <span class="banner-text">
-                您的账户已被列入黑名单，借款功能已禁用。
-                <a href="dashboard.html" class="banner-link">查看详情</a>
+                <span data-lang="blacklistBanner">您的账户已被列入黑名单，借款功能已禁用。请还清逾期借款后等待解除。</span>
+                <a href="dashboard.html" class="banner-link" data-lang="blacklistBannerLink">查看详情</a>
             </span>
         </div>
     </div>
@@ -44,32 +48,32 @@
             <div class="blacklist-prompt" id="blacklistPrompt" style="display: none;">
                 <div class="blacklist-card">
                     <div class="blacklist-icon">🚫</div>
-                    <h2>账户已被限制</h2>
-                    <p class="blacklist-reason">您的账户因逾期超过30天已被列入黑名单</p>
+                    <h2 data-lang="blacklistTitle">账户已被限制</h2>
+                    <p class="blacklist-reason" data-lang="blacklistReason">您的账户因逾期超过30天已被列入黑名单</p>
                     
                     <div class="blacklist-info">
                         <div class="info-item">
-                            <span class="info-label">待还款金额</span>
+                            <span class="info-label" data-lang="blacklistDebt">待还款金额</span>
                             <span class="info-value" id="blacklistDebt">-- USDT</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">逾期借款</span>
+                            <span class="info-label" data-lang="blacklistLoans">逾期借款</span>
                             <span class="info-value" id="blacklistLoans">-- 笔</span>
                         </div>
                     </div>
                     
                     <div class="blacklist-steps">
-                        <h4>如何解除黑名单：</h4>
+                        <h4 data-lang="blacklistHowTo">如何解除黑名单：</h4>
                         <ol>
-                            <li>还清所有逾期借款（本金 + 利息 + 滞纳金）</li>
-                            <li>等待 30 天冷静期</li>
-                            <li>信用分将从 300 分重新开始累积</li>
+                            <li data-lang="blacklistStep1">还清所有逾期借款（本金 + 利息 + 滞纳金）</li>
+                            <li data-lang="blacklistStep2">等待 30 天冷静期</li>
+                            <li data-lang="blacklistStep3">信用分将从 300 分重新开始累积</li>
                         </ol>
                     </div>
                     
                     <div class="blacklist-actions">
-                        <a href="dashboard.html" class="btn btn-primary">前往还款</a>
-                        <button class="btn btn-outline" onclick="showToast('客服功能开发中')">联系客服</button>
+                        <a href="dashboard.html" class="btn btn-primary" data-lang="goToRepay">前往还款</a>
+                        <button class="btn btn-outline" onclick="showToast(t('toastDevInProgress'))" data-lang="contactSupport">联系客服</button>
                     </div>
                 </div>
             </div>
@@ -78,9 +82,9 @@
             <div class="connect-prompt" id="connectPrompt">
                 <div class="prompt-card">
                     <div class="prompt-icon">🔗</div>
-                    <h2>连接钱包开始借款</h2>
-                    <p>请先连接您的钱包，系统将自动评估您的链上信用</p>
-                    <button class="btn btn-primary btn-large" id="promptConnectBtn">
+                    <h2 data-lang="connectPromptTitle">连接钱包开始借款</h2>
+                    <p data-lang="connectPromptDesc">请先连接您的钱包，系统将自动评估您的链上信用</p>
+                    <button class="btn btn-primary btn-large" id="promptConnectBtn" data-lang="connectWallet">
                         连接钱包
                     </button>
                 </div>
@@ -92,7 +96,7 @@
                     <!-- 左侧：信用评分 -->
                     <div class="credit-section">
                         <div class="section-card">
-                            <h3 class="card-title">信用评分</h3>
+                            <h3 class="card-title" data-lang="creditScore">信用评分</h3>
                             
                             <!-- 信用分圆环 -->
                             <div class="credit-score-wrapper">
@@ -168,12 +172,12 @@
                     <!-- 右侧：借款表单 -->
                     <div class="borrow-section">
                         <div class="section-card">
-                            <h3 class="card-title">借款申请</h3>
+                            <h3 class="card-title" data-lang="borrowApplication">借款申请</h3>
                             
                             <form class="borrow-form" id="borrowForm">
                                 <!-- 借款金额 -->
                                 <div class="form-group">
-                                    <label class="form-label">借款金额</label>
+                                    <label class="form-label" data-lang="borrowAmount">借款金额</label>
                                     <div class="amount-input-wrapper">
                                         <input 
                                             type="number" 
@@ -205,30 +209,30 @@
 
                                 <!-- 借款期限 -->
                                 <div class="form-group">
-                                    <label class="form-label">借款期限</label>
+                                    <label class="form-label" data-lang="borrowTerm">借款期限</label>
                                     <div class="term-options">
                                         <label class="term-option">
                                             <input type="radio" name="term" value="7">
-                                            <span class="term-btn">7天</span>
+                                            <span class="term-btn"><span>7</span><span data-lang="days">天</span></span>
                                         </label>
                                         <label class="term-option">
                                             <input type="radio" name="term" value="14">
-                                            <span class="term-btn">14天</span>
+                                            <span class="term-btn"><span>14</span><span data-lang="days">天</span></span>
                                         </label>
                                         <label class="term-option">
                                             <input type="radio" name="term" value="30" checked>
-                                            <span class="term-btn">30天</span>
+                                            <span class="term-btn"><span>30</span><span data-lang="days">天</span></span>
                                         </label>
                                         <label class="term-option">
                                             <input type="radio" name="term" value="90">
-                                            <span class="term-btn">90天</span>
+                                            <span class="term-btn"><span>90</span><span data-lang="days">天</span></span>
                                         </label>
                                     </div>
                                 </div>
 
                                 <!-- 选择币种 -->
                                 <div class="form-group">
-                                    <label class="form-label">收款币种</label>
+                                    <label class="form-label" data-lang="receiveToken">收款币种</label>
                                     <div class="token-options">
                                         <label class="token-option">
                                             <input type="radio" name="token" value="USDT" checked>
@@ -256,39 +260,39 @@
 
                                 <!-- 费用明细 -->
                                 <div class="form-group">
-                                    <label class="form-label">费用明细</label>
+                                    <label class="form-label" data-lang="feeDetails">费用明细</label>
                                     <div class="fee-details">
                                         <div class="fee-row">
-                                            <span class="fee-label">借款金额</span>
+                                            <span class="fee-label" data-lang="principal">借款金额</span>
                                             <span class="fee-value" id="feeAmount">1,000 USDT</span>
                                         </div>
                                         <div class="fee-row">
-                                            <span class="fee-label">借款期限</span>
+                                            <span class="fee-label" data-lang="borrowTerm">借款期限</span>
                                             <span class="fee-value" id="feeTerm">30 天</span>
                                         </div>
                                         <div class="fee-row">
-                                            <span class="fee-label">年化利率</span>
+                                            <span class="fee-label" data-lang="annualRate">年化利率</span>
                                             <span class="fee-value" id="feeRate">8%</span>
                                         </div>
                                         <div class="fee-row">
-                                            <span class="fee-label">借款利息</span>
+                                            <span class="fee-label" data-lang="interest">借款利息</span>
                                             <span class="fee-value accent" id="feeInterest">6.58 USDT</span>
                                         </div>
                                         <div class="fee-divider"></div>
                                         <div class="fee-row total">
-                                            <span class="fee-label">到期还款</span>
+                                            <span class="fee-label" data-lang="totalRepay">到期还款</span>
                                             <span class="fee-value" id="feeTotal">1,006.58 USDT</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- 确认借款 -->
-                                <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                                <button type="submit" class="btn btn-primary btn-block" id="submitBtn" data-lang="confirmBorrow">
                                     确认借款
                                 </button>
 
                                 <p class="form-hint">
-                                    点击确认借款即表示您同意 <a href="#">借款协议</a>
+                                    <span data-lang="borrowAgreement">点击确认借款即表示您同意</span> <a href="#" data-lang="agreementLink">借款协议</a>
                                 </p>
                             </form>
                         </div>
@@ -323,6 +327,7 @@
         </div>
     </div>
 
+    <script src="lang.js"></script>
     <script src="borrow.js"></script>
 </body>
 </html>

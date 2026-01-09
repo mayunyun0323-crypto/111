@@ -164,6 +164,38 @@ body {
     color: inherit;
 }
 
+/* ==================== 语言切换器 ==================== */
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    background: var(--color-bg-secondary);
+    border-radius: 50px;
+    border: 1px solid var(--color-border);
+}
+
+.lang-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    background: transparent;
+    border: none;
+    border-radius: 50px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.lang-btn:hover {
+    color: var(--color-text);
+}
+
+.lang-btn.active {
+    background: var(--color-primary);
+    color: white;
+}
+
 /* ==================== 黑名单警告横幅 ==================== */
 .blacklist-banner {
     display: none;

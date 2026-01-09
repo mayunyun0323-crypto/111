@@ -15,11 +15,15 @@
                 <span class="logo-text">CryptoCredit</span>
             </a>
             <div class="navbar-right">
-                <a href="borrow.html" class="nav-link">借款</a>
-                <a href="dashboard.html" class="nav-link">个人中心</a>
+                <a href="borrow.html" class="nav-link" data-lang="borrow">借款</a>
+                <a href="dashboard.html" class="nav-link" data-lang="dashboard">个人中心</a>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang-switch="zh" onclick="switchLanguage('zh')">中</button>
+                    <button class="lang-btn" data-lang-switch="en" onclick="switchLanguage('en')">EN</button>
+                </div>
                 <button class="btn btn-outline" id="connectWallet">
                     <span class="wallet-icon">◉</span>
-                    <span id="walletText">连接钱包</span>
+                    <span id="walletText" data-lang="connectWallet">连接钱包</span>
                 </button>
             </div>
         </div>
@@ -30,8 +34,8 @@
         <div class="container">
             <span class="banner-icon">⚠️</span>
             <span class="banner-text">
-                您的账户已被列入黑名单，借款功能已禁用。请还清逾期借款后等待解除。
-                <a href="dashboard.html" class="banner-link">查看详情</a>
+                <span data-lang="blacklistBanner">您的账户已被列入黑名单，借款功能已禁用。请还清逾期借款后等待解除。</span>
+                <a href="dashboard.html" class="banner-link" data-lang="blacklistBannerLink">查看详情</a>
             </span>
         </div>
     </div>
@@ -39,20 +43,20 @@
     <!-- 主要内容区 -->
     <main class="hero">
         <div class="container hero-content">
-            <div class="hero-badge">DeFi 信用借贷</div>
-            <h1 class="hero-title">
+            <div class="hero-badge" data-lang="heroBadge">DeFi 信用借贷</div>
+            <h1 class="hero-title" data-lang="heroTitle">
                 无抵押，即时借款
             </h1>
             <p class="hero-subtitle">
-                基于链上信用评估，最高可借 <span class="highlight">5,000 USDT</span>
+                <span data-lang="heroSubtitle">基于链上信用评估，最高可借</span> <span class="highlight">5,000 USDT</span>
             </p>
             
             <div class="hero-actions">
                 <button class="btn btn-primary btn-large" id="borrowBtn">
-                    立即借款
+                    <span data-lang="borrowNow">立即借款</span>
                     <span class="btn-arrow">→</span>
                 </button>
-                <a href="dashboard.html" class="btn btn-ghost btn-large">
+                <a href="dashboard.html" class="btn btn-ghost btn-large" data-lang="checkRepay">
                     查账还款
                 </a>
             </div>
@@ -62,22 +66,22 @@
                 <div class="feature-item">
                     <div class="feature-icon">🔓</div>
                     <div class="feature-text">
-                        <span class="feature-title">无需抵押</span>
-                        <span class="feature-desc">信用借款，无需锁仓</span>
+                        <span class="feature-title" data-lang="featureNoCollateral">无需抵押</span>
+                        <span class="feature-desc" data-lang="featureNoCollateralDesc">信用借款，无需锁仓</span>
                     </div>
                 </div>
                 <div class="feature-item">
                     <div class="feature-icon">⚡</div>
                     <div class="feature-text">
-                        <span class="feature-title">秒级到账</span>
-                        <span class="feature-desc">审核通过即时放款</span>
+                        <span class="feature-title" data-lang="featureInstant">秒级到账</span>
+                        <span class="feature-desc" data-lang="featureInstantDesc">审核通过即时放款</span>
                     </div>
                 </div>
                 <div class="feature-item">
                     <div class="feature-icon">📊</div>
                     <div class="feature-text">
-                        <span class="feature-title">灵活还款</span>
-                        <span class="feature-desc">支持提前还款</span>
+                        <span class="feature-title" data-lang="featureFlexible">灵活还款</span>
+                        <span class="feature-desc" data-lang="featureFlexibleDesc">支持提前还款</span>
                     </div>
                 </div>
             </div>
@@ -96,19 +100,19 @@
             <div class="stats-grid">
                 <div class="stat-item">
                     <div class="stat-value">$2.5M+</div>
-                    <div class="stat-label">累计放款</div>
+                    <div class="stat-label" data-lang="statTotalLent">累计放款</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-value">1,200+</div>
-                    <div class="stat-label">活跃用户</div>
+                    <div class="stat-label" data-lang="statActiveUsers">活跃用户</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-value">8%</div>
-                    <div class="stat-label">最低年化</div>
+                    <div class="stat-label" data-lang="statMinRate">最低年化</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-value">99.2%</div>
-                    <div class="stat-label">还款率</div>
+                    <div class="stat-label" data-lang="statRepayRate">还款率</div>
                 </div>
             </div>
         </div>
@@ -117,27 +121,27 @@
     <!-- 如何运作 -->
     <section class="how-it-works">
         <div class="container">
-            <h2 class="section-title">如何借款</h2>
+            <h2 class="section-title" data-lang="howItWorks">如何借款</h2>
             <div class="steps-grid">
                 <div class="step-item">
                     <div class="step-number">01</div>
-                    <h3 class="step-title">连接钱包</h3>
-                    <p class="step-desc">支持 MetaMask、WalletConnect 等主流钱包</p>
+                    <h3 class="step-title" data-lang="step1Title">连接钱包</h3>
+                    <p class="step-desc" data-lang="step1Desc">支持 MetaMask、WalletConnect 等主流钱包</p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">02</div>
-                    <h3 class="step-title">信用评估</h3>
-                    <p class="step-desc">系统自动分析链上数据生成信用评分</p>
+                    <h3 class="step-title" data-lang="step2Title">信用评估</h3>
+                    <p class="step-desc" data-lang="step2Desc">系统自动分析链上数据生成信用评分</p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">03</div>
-                    <h3 class="step-title">确认借款</h3>
-                    <p class="step-desc">选择金额和期限，签名确认即可</p>
+                    <h3 class="step-title" data-lang="step3Title">确认借款</h3>
+                    <p class="step-desc" data-lang="step3Desc">选择金额和期限，签名确认即可</p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">04</div>
-                    <h3 class="step-title">资金到账</h3>
-                    <p class="step-desc">USDT 直接转入您的钱包地址</p>
+                    <h3 class="step-title" data-lang="step4Title">资金到账</h3>
+                    <p class="step-desc" data-lang="step4Desc">USDT 直接转入您的钱包地址</p>
                 </div>
             </div>
         </div>
@@ -151,10 +155,10 @@
                 <span class="logo-text">CryptoCredit</span>
             </div>
             <div class="footer-links">
-                <a href="#">文档</a>
-                <a href="#">条款</a>
-                <a href="#">隐私</a>
-                <a href="#">联系我们</a>
+                <a href="#" data-lang="footerDocs">文档</a>
+                <a href="#" data-lang="footerTerms">条款</a>
+                <a href="#" data-lang="footerPrivacy">隐私</a>
+                <a href="#" data-lang="footerContact">联系我们</a>
             </div>
             <div class="footer-copy">
                 © 2026 CryptoCredit. All rights reserved.
@@ -162,6 +166,7 @@
         </div>
     </footer>
 
+    <script src="lang.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
