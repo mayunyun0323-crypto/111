@@ -92,84 +92,8 @@
 
             <!-- 借款主界面 -->
             <div class="borrow-main" id="borrowMain" style="display: none;">
-                <div class="borrow-grid">
-                    <!-- 左侧：信用评分 -->
-                    <div class="credit-section">
-                        <div class="section-card">
-                            <h3 class="card-title" data-lang="creditScore">信用评分</h3>
-                            
-                            <!-- 信用分圆环 -->
-                            <div class="credit-score-wrapper">
-                                <div class="credit-ring">
-                                    <svg viewBox="0 0 200 200">
-                                        <circle class="ring-bg" cx="100" cy="100" r="85"/>
-                                        <circle class="ring-progress" cx="100" cy="100" r="85" id="scoreRing"/>
-                                    </svg>
-                                    <div class="score-inner">
-                                        <span class="score-value" id="scoreValue">--</span>
-                                        <span class="score-label">信用分</span>
-                                    </div>
-                                </div>
-                                <div class="credit-grade" id="creditGrade">
-                                    <span class="grade-badge">--</span>
-                                    <span class="grade-text">评估中...</span>
-                                </div>
-                            </div>
-
-                            <!-- 信用明细 -->
-                            <div class="credit-details">
-                                <div class="detail-item">
-                                    <span class="detail-label">钱包历史</span>
-                                    <div class="detail-bar">
-                                        <div class="bar-fill" id="barWallet" style="width: 0%"></div>
-                                    </div>
-                                    <span class="detail-score" id="scoreWallet">--</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">交易记录</span>
-                                    <div class="detail-bar">
-                                        <div class="bar-fill" id="barTransaction" style="width: 0%"></div>
-                                    </div>
-                                    <span class="detail-score" id="scoreTransaction">--</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">资产持有</span>
-                                    <div class="detail-bar">
-                                        <div class="bar-fill" id="barAsset" style="width: 0%"></div>
-                                    </div>
-                                    <span class="detail-score" id="scoreAsset">--</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">DeFi参与</span>
-                                    <div class="detail-bar">
-                                        <div class="bar-fill" id="barDefi" style="width: 0%"></div>
-                                    </div>
-                                    <span class="detail-score" id="scoreDefi">--</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">还款记录</span>
-                                    <div class="detail-bar">
-                                        <div class="bar-fill" id="barRepay" style="width: 0%"></div>
-                                    </div>
-                                    <span class="detail-score" id="scoreRepay">--</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 额度信息 -->
-                        <div class="section-card quota-card">
-                            <div class="quota-item">
-                                <span class="quota-label">可借额度</span>
-                                <span class="quota-value" id="maxQuota">-- USDT</span>
-                            </div>
-                            <div class="quota-item">
-                                <span class="quota-label">年化利率</span>
-                                <span class="quota-value highlight" id="interestRate">--%</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 右侧：借款表单 -->
+                <div class="borrow-form-wrapper">
+                    <!-- 借款表单 -->
                     <div class="borrow-section">
                         <div class="section-card">
                             <h3 class="card-title" data-lang="borrowApplication">借款申请</h3>

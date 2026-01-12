@@ -62,7 +62,7 @@
 /* ==================== 概览卡片 ==================== */
 .overview-cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     margin-bottom: 24px;
 }
@@ -316,8 +316,8 @@
 /* ==================== 借款卡片 ==================== */
 .loans-list {
     padding: 16px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 16px;
 }
 

@@ -80,14 +80,6 @@
                             <span class="card-value" id="totalRepaid">0 USDT</span>
                         </div>
                     </div>
-                    <div class="overview-card credit-card" id="creditCard">
-                        <div class="card-icon">⭐</div>
-                        <div class="card-info">
-                            <span class="card-label" data-lang="creditScore">信用评分</span>
-                            <span class="card-value" id="creditScore">--</span>
-                        </div>
-                        <span class="credit-badge" id="creditBadge">--</span>
-                    </div>
                 </div>
 
                 <!-- 黑名单状态卡片 -->
@@ -137,116 +129,22 @@
                     </div>
                 </div>
 
-                <!-- 主内容区域 -->
-                <div class="dashboard-grid">
-                    <!-- 左侧：当前借款 -->
-                    <div class="section-panel">
-                        <div class="panel-header">
-                            <h3 class="panel-title" data-lang="currentLoans">当前借款</h3>
-                        </div>
-                        
-                        <!-- 无借款状态 -->
-                        <div class="empty-state" id="emptyLoans" style="display: none;">
-                            <div class="empty-icon">📋</div>
-                            <p data-lang="noActiveLoans">暂无进行中的借款</p>
-                            <a href="borrow.html" class="btn btn-primary" data-lang="borrowNow">立即借款</a>
-                        </div>
-
-                        <!-- 借款列表 -->
-                        <div class="loans-list" id="loansList">
-                            <!-- 借款卡片会通过 JS 动态生成 -->
-                        </div>
+                <!-- 当前借款 -->
+                <div class="section-panel full-width">
+                    <div class="panel-header">
+                        <h3 class="panel-title" data-lang="currentLoans">当前借款</h3>
+                    </div>
+                    
+                    <!-- 无借款状态 -->
+                    <div class="empty-state" id="emptyLoans" style="display: none;">
+                        <div class="empty-icon">📋</div>
+                        <p data-lang="noActiveLoans">暂无进行中的借款</p>
+                        <a href="borrow.html" class="btn btn-primary" data-lang="borrowNow">立即借款</a>
                     </div>
 
-                    <!-- 右侧：信用报告 -->
-                    <div class="section-panel">
-                        <div class="panel-header">
-                            <h3 class="panel-title" data-lang="creditReport">信用报告</h3>
-                        </div>
-                        
-                        <div class="credit-report">
-                            <!-- 信用分展示 -->
-                            <div class="credit-overview">
-                                <div class="credit-ring-small">
-                                    <svg viewBox="0 0 100 100">
-                                        <circle class="ring-bg" cx="50" cy="50" r="42"/>
-                                        <circle class="ring-progress" cx="50" cy="50" r="42" id="creditRing"/>
-                                    </svg>
-                                    <div class="ring-inner">
-                                        <span class="ring-score" id="ringScore">--</span>
-                                    </div>
-                                </div>
-                                <div class="credit-info">
-                                    <div class="credit-grade-display">
-                                        <span class="grade-label">信用等级</span>
-                                        <span class="grade-value" id="gradeValue">--</span>
-                                    </div>
-                                    <div class="credit-quota">
-                                        <span class="quota-label">可用额度</span>
-                                        <span class="quota-value" id="quotaValue">-- USDT</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 信用明细 -->
-                            <div class="credit-breakdown">
-                                <div class="breakdown-item">
-                                    <div class="breakdown-header">
-                                        <span class="breakdown-label">钱包历史</span>
-                                        <span class="breakdown-score" id="bkWallet">--</span>
-                                    </div>
-                                    <div class="breakdown-bar">
-                                        <div class="bar-fill" id="barWallet"></div>
-                                    </div>
-                                </div>
-                                <div class="breakdown-item">
-                                    <div class="breakdown-header">
-                                        <span class="breakdown-label">交易记录</span>
-                                        <span class="breakdown-score" id="bkTransaction">--</span>
-                                    </div>
-                                    <div class="breakdown-bar">
-                                        <div class="bar-fill" id="barTransaction"></div>
-                                    </div>
-                                </div>
-                                <div class="breakdown-item">
-                                    <div class="breakdown-header">
-                                        <span class="breakdown-label">资产持有</span>
-                                        <span class="breakdown-score" id="bkAsset">--</span>
-                                    </div>
-                                    <div class="breakdown-bar">
-                                        <div class="bar-fill" id="barAsset"></div>
-                                    </div>
-                                </div>
-                                <div class="breakdown-item">
-                                    <div class="breakdown-header">
-                                        <span class="breakdown-label">DeFi参与</span>
-                                        <span class="breakdown-score" id="bkDefi">--</span>
-                                    </div>
-                                    <div class="breakdown-bar">
-                                        <div class="bar-fill" id="barDefi"></div>
-                                    </div>
-                                </div>
-                                <div class="breakdown-item">
-                                    <div class="breakdown-header">
-                                        <span class="breakdown-label">还款记录</span>
-                                        <span class="breakdown-score" id="bkRepay">--</span>
-                                    </div>
-                                    <div class="breakdown-bar">
-                                        <div class="bar-fill" id="barRepay"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 信用提升建议 -->
-                            <div class="credit-tips">
-                                <h4 class="tips-title">💡 信用提升建议</h4>
-                                <ul class="tips-list" id="tipsList">
-                                    <li>保持定期交易活动</li>
-                                    <li>按时还款，避免逾期</li>
-                                    <li>参与更多 DeFi 协议</li>
-                                </ul>
-                            </div>
-                        </div>
+                    <!-- 借款列表 -->
+                    <div class="loans-list" id="loansList">
+                        <!-- 借款卡片会通过 JS 动态生成 -->
                     </div>
                 </div>
 

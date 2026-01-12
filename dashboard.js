@@ -198,9 +198,6 @@ const elements = {
     currentDebt: document.getElementById('currentDebt'),
     pendingRepay: document.getElementById('pendingRepay'),
     totalRepaid: document.getElementById('totalRepaid'),
-    creditScore: document.getElementById('creditScore'),
-    creditBadge: document.getElementById('creditBadge'),
-    creditCard: document.getElementById('creditCard'),
     
     // 黑名单相关
     blacklistBanner: document.getElementById('blacklistBanner'),
@@ -211,12 +208,6 @@ const elements = {
     // 借款列表
     loansList: document.getElementById('loansList'),
     emptyLoans: document.getElementById('emptyLoans'),
-    
-    // 信用报告
-    creditRing: document.getElementById('creditRing'),
-    ringScore: document.getElementById('ringScore'),
-    gradeValue: document.getElementById('gradeValue'),
-    quotaValue: document.getElementById('quotaValue'),
     
     // 历史记录
     historyFilter: document.getElementById('historyFilter'),
@@ -344,17 +335,10 @@ function loadDashboardData() {
     // 检查黑名单状态
     if (state.isBlacklisted) {
         showBlacklistStatus(pendingRepay, activeLoans.filter(l => l.status === 'overdue').length);
-    } else {
-        elements.creditScore.textContent = mockData.credit.score;
-        elements.creditBadge.textContent = mockData.credit.grade + '级';
-        elements.creditBadge.className = `credit-badge grade-${mockData.credit.grade.toLowerCase()}`;
     }
     
     // 渲染借款列表
     renderLoansList();
-    
-    // 渲染信用报告
-    renderCreditReport();
     
     // 渲染历史记录
     renderHistory();
@@ -367,12 +351,6 @@ function showBlacklistStatus(totalDebt, overdueCount) {
     // 显示横幅
     elements.blacklistBanner.classList.add('active');
     document.body.classList.add('is-blacklisted');
-    
-    // 更新信用卡片为黑名单状态
-    elements.creditScore.textContent = '0';
-    elements.creditBadge.textContent = '黑名单';
-    elements.creditBadge.className = 'credit-badge grade-blacklist';
-    elements.creditCard.classList.add('blacklisted');
     
     // 显示黑名单状态卡片
     elements.blacklistStatusCard.style.display = 'block';
@@ -544,73 +522,6 @@ function renderLoansList() {
     });
 }
 
-/**
- * 渲染信用报告
- */
-function renderCreditReport() {
-    const credit = mockData.credit;
-    
-    // 黑名单状态特殊处理
-    if (state.isBlacklisted) {
-        elements.creditRing.style.strokeDashoffset = 264;
-        elements.creditRing.style.stroke = '#ef4444';
-        elements.ringScore.textContent = '0';
-        elements.ringScore.style.color = '#ef4444';
-        elements.gradeValue.textContent = '黑名单';
-        elements.gradeValue.style.color = '#ef4444';
-        elements.quotaValue.textContent = '0 USDT';
-        
-        // 所有明细条归零
-        setTimeout(() => {
-            document.getElementById('barWallet').style.width = '0%';
-            document.getElementById('barTransaction').style.width = '0%';
-            document.getElementById('barAsset').style.width = '0%';
-            document.getElementById('barDefi').style.width = '0%';
-            document.getElementById('barRepay').style.width = '0%';
-            
-            document.getElementById('bkWallet').textContent = '0';
-            document.getElementById('bkTransaction').textContent = '0';
-            document.getElementById('bkAsset').textContent = '0';
-            document.getElementById('bkDefi').textContent = '0';
-            document.getElementById('bkRepay').textContent = '0';
-        }, 200);
-        
-        // 更新提示
-        document.getElementById('tipsList').innerHTML = `
-            <li style="color: #ef4444;">您的账户已被列入黑名单</li>
-            <li>请尽快还清所有逾期借款</li>
-            <li>还清后等待 30 天冷静期</li>
-            <li>信用分将从 300 分重新开始累积</li>
-        `;
-        return;
-    }
-    
-    const config = CREDIT_GRADES[credit.grade];
-    
-    // 更新圆环
-    const progress = (credit.score / 1000) * 264;
-    elements.creditRing.style.strokeDashoffset = 264 - progress;
-    
-    // 更新分数
-    elements.ringScore.textContent = credit.score;
-    elements.gradeValue.textContent = config.label;
-    elements.quotaValue.textContent = `${config.quota.toLocaleString()} USDT`;
-    
-    // 更新明细条
-    setTimeout(() => {
-        document.getElementById('barWallet').style.width = `${credit.details.wallet}%`;
-        document.getElementById('barTransaction').style.width = `${credit.details.transaction}%`;
-        document.getElementById('barAsset').style.width = `${credit.details.asset}%`;
-        document.getElementById('barDefi').style.width = `${credit.details.defi}%`;
-        document.getElementById('barRepay').style.width = `${credit.details.repay}%`;
-        
-        document.getElementById('bkWallet').textContent = credit.details.wallet;
-        document.getElementById('bkTransaction').textContent = credit.details.transaction;
-        document.getElementById('bkAsset').textContent = credit.details.asset;
-        document.getElementById('bkDefi').textContent = credit.details.defi;
-        document.getElementById('bkRepay').textContent = credit.details.repay;
-    }, 200);
-}
 
 /**
  * 渲染历史记录

@@ -139,6 +139,11 @@
 }
 
 /* ==================== 借款主界面布局 ==================== */
+.borrow-form-wrapper {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
 .borrow-grid {
     display: grid;
     grid-template-columns: 400px 1fr;

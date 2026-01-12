@@ -25,17 +25,8 @@ let state = {
     isConnected: false,
     address: null,
     isBlacklisted: IS_BLACKLISTED,
-    creditScore: 0,
-    creditGrade: null,
-    maxQuota: 0,
-    interestRate: 0,
-    creditDetails: {
-        wallet: 0,
-        transaction: 0,
-        asset: 0,
-        defi: 0,
-        repay: 0
-    }
+    maxQuota: 5000,
+    interestRate: 8
 };
 
 // DOM 元素
@@ -51,13 +42,6 @@ const elements = {
     blacklistPrompt: document.getElementById('blacklistPrompt'),
     blacklistDebt: document.getElementById('blacklistDebt'),
     blacklistLoans: document.getElementById('blacklistLoans'),
-    
-    // 信用评分
-    scoreValue: document.getElementById('scoreValue'),
-    scoreRing: document.getElementById('scoreRing'),
-    creditGrade: document.getElementById('creditGrade'),
-    maxQuota: document.getElementById('maxQuota'),
-    interestRate: document.getElementById('interestRate'),
     
     // 借款表单
     borrowAmount: document.getElementById('borrowAmount'),
@@ -101,7 +85,10 @@ async function connectWallet() {
                     showBlacklistInterface();
                 } else {
                     showBorrowInterface();
-                    await evaluateCredit();
+                    // 设置默认利率
+                    state.interestRate = 8;
+                    state.maxQuota = 5000;
+                    updateFeeDetails();
                 }
             }
         } catch (error) {
@@ -127,7 +114,10 @@ function simulateWalletConnect() {
         showBlacklistInterface();
     } else {
         showBorrowInterface();
-        evaluateCredit();
+        // 设置默认利率
+        state.interestRate = 8;
+        state.maxQuota = 5000;
+        updateFeeDetails();
     }
 }
 
@@ -174,118 +164,6 @@ function showBlacklistInterface() {
     document.body.classList.add('is-blacklisted');
 }
 
-/**
- * 评估信用分（模拟）
- */
-async function evaluateCredit() {
-    // 显示加载状态
-    elements.scoreValue.textContent = '...';
-    
-    // 模拟 API 延迟
-    await sleep(1500);
-    
-    // 模拟生成信用分数据
-    state.creditDetails = {
-        wallet: Math.floor(Math.random() * 40) + 60,    // 60-100
-        transaction: Math.floor(Math.random() * 30) + 70, // 70-100
-        asset: Math.floor(Math.random() * 35) + 65,      // 65-100
-        defi: Math.floor(Math.random() * 50) + 50,       // 50-100
-        repay: Math.floor(Math.random() * 20) + 80       // 80-100
-    };
-    
-    // 计算加权总分
-    const weights = { wallet: 0.2, transaction: 0.25, asset: 0.25, defi: 0.15, repay: 0.15 };
-    state.creditScore = Math.round(
-        state.creditDetails.wallet * weights.wallet * 10 +
-        state.creditDetails.transaction * weights.transaction * 10 +
-        state.creditDetails.asset * weights.asset * 10 +
-        state.creditDetails.defi * weights.defi * 10 +
-        state.creditDetails.repay * weights.repay * 10
-    );
-    
-    // 限制在合理范围
-    state.creditScore = Math.min(Math.max(state.creditScore, 300), 950);
-    
-    // 确定信用等级
-    for (const [grade, config] of Object.entries(CREDIT_GRADES)) {
-        if (state.creditScore >= config.min && state.creditScore <= config.max) {
-            state.creditGrade = grade;
-            state.maxQuota = config.quota;
-            state.interestRate = config.rate;
-            break;
-        }
-    }
-    
-    // 更新 UI
-    updateCreditUI();
-    updateFormLimits();
-}
-
-/**
- * 更新信用评分 UI
- */
-function updateCreditUI() {
-    // 更新分数
-    animateNumber(elements.scoreValue, state.creditScore);
-    
-    // 更新圆环进度
-    const progress = (state.creditScore / 1000) * 534;
-    elements.scoreRing.style.strokeDashoffset = 534 - progress;
-    elements.scoreRing.style.stroke = CREDIT_GRADES[state.creditGrade].color;
-    
-    // 更新等级徽章
-    const gradeBadge = elements.creditGrade.querySelector('.grade-badge');
-    const gradeText = elements.creditGrade.querySelector('.grade-text');
-    
-    gradeBadge.textContent = state.creditGrade;
-    gradeBadge.className = `grade-badge grade-${state.creditGrade.toLowerCase()}`;
-    
-    const gradeDescriptions = {
-        A: '信用优秀',
-        B: '信用良好',
-        C: '信用一般',
-        D: '信用不足'
-    };
-    gradeText.textContent = gradeDescriptions[state.creditGrade];
-    
-    // 更新额度和利率
-    elements.maxQuota.textContent = `${state.maxQuota.toLocaleString()} USDT`;
-    elements.interestRate.textContent = `${state.interestRate}%`;
-    
-    // 更新信用明细条
-    setTimeout(() => {
-        document.getElementById('barWallet').style.width = `${state.creditDetails.wallet}%`;
-        document.getElementById('barTransaction').style.width = `${state.creditDetails.transaction}%`;
-        document.getElementById('barAsset').style.width = `${state.creditDetails.asset}%`;
-        document.getElementById('barDefi').style.width = `${state.creditDetails.defi}%`;
-        document.getElementById('barRepay').style.width = `${state.creditDetails.repay}%`;
-        
-        document.getElementById('scoreWallet').textContent = state.creditDetails.wallet;
-        document.getElementById('scoreTransaction').textContent = state.creditDetails.transaction;
-        document.getElementById('scoreAsset').textContent = state.creditDetails.asset;
-        document.getElementById('scoreDefi').textContent = state.creditDetails.defi;
-        document.getElementById('scoreRepay').textContent = state.creditDetails.repay;
-    }, 300);
-}
-
-/**
- * 更新表单限制
- */
-function updateFormLimits() {
-    const max = state.maxQuota;
-    
-    elements.borrowAmount.max = max;
-    elements.amountSlider.max = max;
-    elements.maxSliderLabel.textContent = max;
-    
-    // 如果当前值超过最大值，调整
-    if (parseInt(elements.borrowAmount.value) > max) {
-        elements.borrowAmount.value = max;
-        elements.amountSlider.value = max;
-    }
-    
-    updateFeeDetails();
-}
 
 /**
  * 更新费用明细
@@ -382,31 +260,6 @@ function closeModal() {
     elements.successModal.classList.remove('active');
 }
 
-/**
- * 数字动画
- */
-function animateNumber(element, target) {
-    const duration = 1000;
-    const start = 0;
-    const startTime = performance.now();
-    
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        // 缓动函数
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-        const current = Math.round(start + (target - start) * easeOut);
-        
-        element.textContent = current;
-        
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        }
-    }
-    
-    requestAnimationFrame(update);
-}
 
 /**
  * 显示 Toast
