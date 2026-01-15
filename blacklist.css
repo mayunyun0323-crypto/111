@@ -1,0 +1,367 @@
+/* ==================== 失信名单页面 ==================== */
+.blacklist-page {
+    min-height: calc(100vh - 200px);
+    padding: 120px 0 60px;
+    background: var(--color-bg);
+}
+
+/* 页面标题 */
+.page-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.page-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-desc {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* 统计信息 */
+.blacklist-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    padding: 28px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.stat-card:hover {
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: #ef4444;
+    margin-bottom: 8px;
+}
+
+.stat-name {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+/* 搜索和筛选 */
+.blacklist-filters {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.search-box {
+    flex: 1;
+    display: flex;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.search-input {
+    flex: 1;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: var(--color-text);
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.search-btn {
+    padding: 14px 20px;
+    background: transparent;
+    border: none;
+    border-left: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.search-btn:hover {
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+.search-icon {
+    font-size: 18px;
+}
+
+.filter-options {
+    display: flex;
+    gap: 12px;
+}
+
+.filter-select {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: var(--color-text);
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    outline: none;
+    cursor: pointer;
+}
+
+/* 表格 */
+.blacklist-table-wrapper {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.blacklist-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.blacklist-table th,
+.blacklist-table td {
+    padding: 16px 20px;
+    text-align: left;
+}
+
+.blacklist-table th {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.blacklist-table td {
+    font-size: 14px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.blacklist-table tr:last-child td {
+    border-bottom: none;
+}
+
+.blacklist-table tr:hover td {
+    background: rgba(239, 68, 68, 0.03);
+}
+
+/* 地址样式 */
+.address-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.address-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 50%;
+}
+
+.address-text {
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.address-text .full {
+    display: none;
+}
+
+/* 金额样式 */
+.debt-amount {
+    font-weight: 600;
+    color: #ef4444;
+}
+
+/* 逾期天数 */
+.overdue-days {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.overdue-days .days-num {
+    font-weight: 600;
+}
+
+.overdue-days.severe .days-num {
+    color: #ef4444;
+}
+
+.overdue-days.medium .days-num {
+    color: #f97316;
+}
+
+/* 状态标签 */
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 50px;
+}
+
+.status-badge.blacklisted {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.status-badge.removed {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.1);
+}
+
+/* 分页 */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 48px;
+}
+
+.page-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--color-text);
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.page-btn:hover:not(:disabled) {
+    border-color: var(--color-text-secondary);
+}
+
+.page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-info {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.page-info span {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+/* 免责声明 */
+.disclaimer {
+    padding: 24px;
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: var(--border-radius);
+}
+
+.disclaimer h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ef4444;
+    margin-bottom: 12px;
+}
+
+.disclaimer p {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+/* ==================== 响应式设计 ==================== */
+@media (max-width: 900px) {
+    .blacklist-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .blacklist-filters {
+        flex-direction: column;
+    }
+    
+    .filter-options {
+        width: 100%;
+    }
+    
+    .filter-select {
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .blacklist-page {
+        padding: 100px 0 40px;
+    }
+    
+    .page-title {
+        font-size: 28px;
+    }
+    
+    .page-desc {
+        font-size: 14px;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+    }
+    
+    .blacklist-table th,
+    .blacklist-table td {
+        padding: 12px 14px;
+    }
+    
+    .blacklist-table th:nth-child(4),
+    .blacklist-table td:nth-child(4) {
+        display: none;
+    }
+    
+    .address-text {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .blacklist-table th:nth-child(3),
+    .blacklist-table td:nth-child(3) {
+        display: none;
+    }
+    
+    .address-icon {
+        display: none;
+    }
+}

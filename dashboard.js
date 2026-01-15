@@ -31,8 +31,8 @@ const mockData = {
             id: 'LC2026010801',
             amount: 2000,
             token: 'USDT',
-            borrowDate: '2026-01-05',
-            dueDate: '2026-02-04',
+            borrowDate: '2026-01-05T14:30:00Z',
+            dueDate: '2026-02-04T14:30:00Z',
             term: 30,
             rate: 8,
             interest: 13.15,
@@ -43,8 +43,8 @@ const mockData = {
             id: 'LC2026010701',
             amount: 800,
             token: 'USDC',
-            borrowDate: '2026-01-01',
-            dueDate: '2026-01-10',
+            borrowDate: '2026-01-01T09:15:00Z',
+            dueDate: '2026-01-10T09:15:00Z',
             term: 14,
             rate: 8,
             interest: 2.46,
@@ -55,8 +55,8 @@ const mockData = {
             id: 'LC2026010502',
             amount: 500,
             token: 'USDT',
-            borrowDate: '2025-12-28',
-            dueDate: '2026-01-04',
+            borrowDate: '2025-12-28T16:45:00Z',
+            dueDate: '2026-01-04T16:45:00Z',
             term: 14,
             rate: 8,
             interest: 1.53,
@@ -67,8 +67,8 @@ const mockData = {
             id: 'LC2025122801',
             amount: 1000,
             token: 'USDT',
-            borrowDate: '2025-12-20',
-            dueDate: '2025-12-27',
+            borrowDate: '2025-12-20T11:20:00Z',
+            dueDate: '2025-12-27T11:20:00Z',
             term: 7,
             rate: 8,
             interest: 1.53,
@@ -82,8 +82,8 @@ const mockData = {
             id: 'LC2026010801',
             amount: 2000,
             token: 'USDT',
-            borrowDate: '2026-01-05',
-            dueDate: '2026-02-04',
+            borrowDate: '2026-01-05T14:30:00Z',
+            dueDate: '2026-02-04T14:30:00Z',
             term: 30,
             rate: 8,
             interest: 13.15,
@@ -94,8 +94,8 @@ const mockData = {
             id: 'LC2026010701',
             amount: 800,
             token: 'USDC',
-            borrowDate: '2026-01-01',
-            dueDate: '2026-01-10',
+            borrowDate: '2026-01-01T09:15:00Z',
+            dueDate: '2026-01-10T09:15:00Z',
             term: 14,
             rate: 8,
             interest: 2.46,
@@ -106,8 +106,8 @@ const mockData = {
             id: 'LC2026010502',
             amount: 500,
             token: 'USDT',
-            borrowDate: '2025-12-28',
-            dueDate: '2026-01-04',
+            borrowDate: '2025-12-28T16:45:00Z',
+            dueDate: '2026-01-04T16:45:00Z',
             term: 14,
             rate: 8,
             interest: 1.53,
@@ -118,8 +118,8 @@ const mockData = {
             id: 'LC2025122801',
             amount: 1000,
             token: 'USDT',
-            borrowDate: '2025-12-20',
-            dueDate: '2025-12-27',
+            borrowDate: '2025-12-20T11:20:00Z',
+            dueDate: '2025-12-27T11:20:00Z',
             term: 7,
             rate: 8,
             interest: 1.53,
@@ -130,8 +130,8 @@ const mockData = {
             id: 'LC2025122001',
             amount: 1000,
             token: 'USDT',
-            borrowDate: '2025-12-01',
-            dueDate: '2025-12-31',
+            borrowDate: '2025-12-01T08:00:00Z',
+            dueDate: '2025-12-31T08:00:00Z',
             term: 30,
             rate: 8,
             interest: 6.58,
@@ -142,8 +142,8 @@ const mockData = {
             id: 'LC2025110501',
             amount: 800,
             token: 'USDC',
-            borrowDate: '2025-11-01',
-            dueDate: '2025-11-15',
+            borrowDate: '2025-11-01T10:30:00Z',
+            dueDate: '2025-11-15T10:30:00Z',
             term: 14,
             rate: 8,
             interest: 2.63,
@@ -154,8 +154,8 @@ const mockData = {
             id: 'LC2025100101',
             amount: 500,
             token: 'USDT',
-            borrowDate: '2025-10-01',
-            dueDate: '2025-10-08',
+            borrowDate: '2025-10-01T15:45:00Z',
+            dueDate: '2025-10-08T15:45:00Z',
             term: 7,
             rate: 8,
             interest: 0.77,
@@ -183,6 +183,7 @@ let state = {
     address: null,
     isBlacklisted: IS_BLACKLISTED,
     currentRepayLoan: null,
+    currentRepayTotal: 0,
     currentDetailLoan: null
 };
 
@@ -194,27 +195,18 @@ const elements = {
     dashboardMain: document.getElementById('dashboardMain'),
     promptConnectBtn: document.getElementById('promptConnectBtn'),
     
-    // 概览
-    currentDebt: document.getElementById('currentDebt'),
+    // 待还款
     pendingRepay: document.getElementById('pendingRepay'),
-    totalRepaid: document.getElementById('totalRepaid'),
     
     // 黑名单相关
     blacklistBanner: document.getElementById('blacklistBanner'),
-    blacklistStatusCard: document.getElementById('blacklistStatusCard'),
-    blStatusDebt: document.getElementById('blStatusDebt'),
-    blStatusLoans: document.getElementById('blStatusLoans'),
-    
-    // 借款列表
-    loansList: document.getElementById('loansList'),
-    emptyLoans: document.getElementById('emptyLoans'),
     
     // 历史记录
     historyFilter: document.getElementById('historyFilter'),
     historyTableBody: document.getElementById('historyTableBody'),
     emptyHistory: document.getElementById('emptyHistory'),
     
-    // 还款弹窗
+// 还款弹窗
     repayModal: document.getElementById('repayModal'),
     repayLoanId: document.getElementById('repayLoanId'),
     repayPrincipal: document.getElementById('repayPrincipal'),
@@ -225,7 +217,11 @@ const elements = {
     repayModalClose: document.getElementById('repayModalClose'),
     repayCancel: document.getElementById('repayCancel'),
     repayConfirm: document.getElementById('repayConfirm'),
-    
+    partialRepaySection: document.getElementById('partialRepaySection'),
+    partialRepayAmount: document.getElementById('partialRepayAmount'),
+    remainingValue: document.getElementById('remainingValue'),
+    repayConfirmAmount: document.getElementById('repayConfirmAmount'),
+
     // 成功弹窗
     successModal: document.getElementById('successModal'),
     successAmount: document.getElementById('successAmount'),
@@ -237,24 +233,19 @@ const elements = {
     detailLoanId: document.getElementById('detailLoanId'),
     detailStatus: document.getElementById('detailStatus'),
     detailPrincipal: document.getElementById('detailPrincipal'),
-    detailRate: document.getElementById('detailRate'),
-    detailInterest: document.getElementById('detailInterest'),
-    detailPenalty: document.getElementById('detailPenalty'),
     detailTotal: document.getElementById('detailTotal'),
     detailBorrowDate: document.getElementById('detailBorrowDate'),
     detailDueDate: document.getElementById('detailDueDate'),
     detailTerm: document.getElementById('detailTerm'),
     detailDaysLabel: document.getElementById('detailDaysLabel'),
     detailDaysValue: document.getElementById('detailDaysValue'),
-    detailProgressBar: document.getElementById('detailProgressBar'),
     overdueWarning: document.getElementById('overdueWarning'),
     overdueDesc: document.getElementById('overdueDesc'),
     detailTxHash: document.getElementById('detailTxHash'),
     copyTxHash: document.getElementById('copyTxHash'),
     detailModalClose: document.getElementById('detailModalClose'),
     detailClose: document.getElementById('detailClose'),
-    detailRepayBtn: document.getElementById('detailRepayBtn'),
-    repayTxItem: document.getElementById('repayTxItem')
+    detailRepayBtn: document.getElementById('detailRepayBtn')
 };
 
 /**
@@ -312,50 +303,43 @@ function updateWalletUI() {
  * 加载仪表盘数据
  */
 function loadDashboardData() {
-    // 计算概览数据
-    const activeLoans = mockData.activeLoans;
-    const currentDebt = activeLoans.reduce((sum, loan) => sum + loan.amount, 0);
-    
     // 计算待还款（包含滞纳金）
+    const activeLoans = mockData.activeLoans;
     let pendingRepay = 0;
     activeLoans.forEach(loan => {
         const overdueInfo = calculateOverdueInfo(loan);
         pendingRepay += loan.amount + loan.interest + overdueInfo.penalty;
     });
     
-    const totalRepaid = mockData.history
-        .filter(h => h.status === 'repaid')
-        .reduce((sum, h) => sum + h.amount + h.interest, 0);
-    
-    // 更新概览卡片
-    elements.currentDebt.textContent = `${currentDebt.toLocaleString()} USDT`;
+    // 更新待还款总额
     elements.pendingRepay.textContent = `${pendingRepay.toFixed(2)} USDT`;
-    elements.totalRepaid.textContent = `${totalRepaid.toFixed(2)} USDT`;
     
     // 检查黑名单状态
     if (state.isBlacklisted) {
-        showBlacklistStatus(pendingRepay, activeLoans.filter(l => l.status === 'overdue').length);
+        elements.blacklistBanner.classList.add('active');
+        document.body.classList.add('is-blacklisted');
     }
-    
-    // 渲染借款列表
-    renderLoansList();
     
     // 渲染历史记录
     renderHistory();
 }
 
+
 /**
- * 显示黑名单状态
+ * 格式化日期时间为 UTC+0 格式
  */
-function showBlacklistStatus(totalDebt, overdueCount) {
-    // 显示横幅
-    elements.blacklistBanner.classList.add('active');
-    document.body.classList.add('is-blacklisted');
+function formatDateTimeUTC(dateStr) {
+    const date = new Date(dateStr);
     
-    // 显示黑名单状态卡片
-    elements.blacklistStatusCard.style.display = 'block';
-    elements.blStatusDebt.textContent = `${totalDebt.toFixed(2)} USDT`;
-    elements.blStatusLoans.textContent = `${overdueCount} 笔`;
+    // 格式化为 YYYY-MM-DD HH:mm:ss UTC+0
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const hours = String(date.getUTCHours()).padStart(2, '0');
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} UTC+0`;
 }
 
 /**
@@ -399,128 +383,6 @@ function calculateOverdueInfo(loan) {
     return { daysOverdue, penalty: totalPenalty, level };
 }
 
-/**
- * 渲染借款列表
- */
-function renderLoansList() {
-    const loans = mockData.activeLoans;
-    
-    if (loans.length === 0) {
-        elements.loansList.style.display = 'none';
-        elements.emptyLoans.style.display = 'flex';
-        return;
-    }
-    
-    elements.loansList.style.display = 'flex';
-    elements.emptyLoans.style.display = 'none';
-    
-    elements.loansList.innerHTML = loans.map(loan => {
-        const today = new Date();
-        const dueDate = new Date(loan.dueDate);
-        const borrowDate = new Date(loan.borrowDate);
-        const totalDays = Math.ceil((dueDate - borrowDate) / (1000 * 60 * 60 * 24));
-        const daysLeft = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
-        const progress = Math.min(100, Math.max(0, ((totalDays - daysLeft) / totalDays) * 100));
-        
-        // 计算逾期信息
-        const overdueInfo = calculateOverdueInfo(loan);
-        
-        let statusClass = 'active';
-        let statusText = '进行中';
-        let progressClass = '';
-        let daysClass = '';
-        let cardClass = '';
-        let overdueHtml = '';
-        
-        if (daysLeft <= 0) {
-            statusClass = 'overdue';
-            statusText = '已逾期';
-            progressClass = 'overdue';
-            daysClass = 'overdue';
-            cardClass = 'overdue-card';
-            
-            // 逾期信息提示
-            const levelText = {
-                light: '轻度逾期',
-                medium: '中度逾期',
-                severe: '重度逾期',
-                serious: '严重逾期',
-                default: '已违约'
-            };
-            
-            overdueHtml = `
-                <div class="loan-overdue-info">
-                    <span class="overdue-icon">⚠️</span>
-                    <span class="overdue-text">
-                        <strong>${levelText[overdueInfo.level]}</strong> ${Math.abs(daysLeft)} 天，
-                        当前滞纳金 <strong>${overdueInfo.penalty.toFixed(2)} ${loan.token}</strong>
-                    </span>
-                </div>
-            `;
-        } else if (daysLeft <= 3) {
-            statusClass = 'due-soon';
-            statusText = '即将到期';
-            progressClass = 'urgent';
-            daysClass = 'urgent';
-        }
-        
-        const total = loan.amount + loan.interest + overdueInfo.penalty;
-        
-        return `
-            <div class="loan-card ${cardClass}" data-id="${loan.id}">
-                <div class="loan-header">
-                    <span class="loan-id">${loan.id}</span>
-                    <span class="loan-status ${statusClass}">${statusText}</span>
-                </div>
-                <div class="loan-amount">${loan.amount.toLocaleString()} ${loan.token}</div>
-                ${overdueHtml}
-                <div class="loan-details">
-                    <div class="loan-detail">
-                        <span class="detail-label">借款日期</span>
-                        <span class="detail-value">${loan.borrowDate}</span>
-                    </div>
-                    <div class="loan-detail">
-                        <span class="detail-label">到期日期</span>
-                        <span class="detail-value">${loan.dueDate}</span>
-                    </div>
-                    <div class="loan-detail">
-                        <span class="detail-label">年化利率</span>
-                        <span class="detail-value">${loan.rate}%</span>
-                    </div>
-                    <div class="loan-detail">
-                        <span class="detail-label">应还总额</span>
-                        <span class="detail-value">${total.toFixed(2)} ${loan.token}</span>
-                    </div>
-                </div>
-                <div class="loan-progress">
-                    <div class="progress-header">
-                        <span class="progress-label">借款进度</span>
-                        <span class="progress-days ${daysClass}">
-                            ${daysLeft > 0 ? `剩余 ${daysLeft} 天` : `逾期 ${Math.abs(daysLeft)} 天`}
-                        </span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill ${progressClass}" style="width: ${daysLeft <= 0 ? 100 : progress}%"></div>
-                    </div>
-                </div>
-                <div class="loan-actions">
-                    <button class="btn btn-primary repay-btn" data-id="${loan.id}">立即还款</button>
-                    <button class="btn btn-outline detail-btn" data-id="${loan.id}">查看详情</button>
-                </div>
-            </div>
-        `;
-    }).join('');
-    
-    // 绑定还款按钮事件
-    elements.loansList.querySelectorAll('.repay-btn').forEach(btn => {
-        btn.addEventListener('click', () => openRepayModal(btn.dataset.id));
-    });
-    
-    // 绑定详情按钮事件
-    elements.loansList.querySelectorAll('.detail-btn').forEach(btn => {
-        btn.addEventListener('click', () => openDetailModal(btn.dataset.id));
-    });
-}
 
 
 /**
@@ -597,6 +459,7 @@ function openRepayModal(loanId) {
     // 计算逾期信息
     const overdueInfo = calculateOverdueInfo(loan);
     const total = loan.amount + loan.interest + overdueInfo.penalty;
+    state.currentRepayTotal = total;
     
     // 更新弹窗内容
     elements.repayLoanId.textContent = loan.id;
@@ -606,7 +469,61 @@ function openRepayModal(loanId) {
     elements.repayTotal.textContent = `${total.toFixed(2)} ${loan.token}`;
     elements.walletBalance.textContent = `${(Math.random() * 5000 + 3000).toFixed(2)} USDT`;
     
+    // 重置还款方式为全额还款
+    document.querySelector('input[name="repayType"][value="full"]').checked = true;
+    elements.partialRepaySection.style.display = 'none';
+    elements.partialRepayAmount.value = '';
+    elements.repayConfirmAmount.textContent = `${total.toFixed(2)} USDT`;
+    updateRemainingAmount();
+    
+    // 清除快捷按钮选中状态
+    document.querySelectorAll('.hint-btn').forEach(btn => btn.classList.remove('active'));
+    
     elements.repayModal.classList.add('active');
+}
+
+/**
+ * 切换还款方式
+ */
+function toggleRepayType(type) {
+    if (type === 'partial') {
+        elements.partialRepaySection.style.display = 'block';
+        elements.partialRepayAmount.value = '';
+        elements.repayConfirmAmount.textContent = '';
+        updateRemainingAmount();
+    } else {
+        elements.partialRepaySection.style.display = 'none';
+        elements.repayConfirmAmount.textContent = `${state.currentRepayTotal.toFixed(2)} USDT`;
+    }
+}
+
+/**
+ * 更新剩余待还金额
+ */
+function updateRemainingAmount() {
+    const repayAmount = parseFloat(elements.partialRepayAmount.value) || 0;
+    const remaining = Math.max(0, state.currentRepayTotal - repayAmount);
+    elements.remainingValue.textContent = `${remaining.toFixed(2)} USDT`;
+    
+    if (repayAmount > 0) {
+        elements.repayConfirmAmount.textContent = `${repayAmount.toFixed(2)} USDT`;
+    } else {
+        elements.repayConfirmAmount.textContent = '';
+    }
+}
+
+/**
+ * 设置还款百分比
+ */
+function setRepayPercent(percent) {
+    const amount = (state.currentRepayTotal * percent / 100).toFixed(2);
+    elements.partialRepayAmount.value = amount;
+    updateRemainingAmount();
+    
+    // 更新按钮状态
+    document.querySelectorAll('.hint-btn').forEach(btn => {
+        btn.classList.toggle('active', parseInt(btn.dataset.percent) === percent);
+    });
 }
 
 /**
@@ -615,6 +532,7 @@ function openRepayModal(loanId) {
 function closeRepayModal() {
     elements.repayModal.classList.remove('active');
     state.currentRepayLoan = null;
+    state.currentRepayTotal = 0;
 }
 
 /**
@@ -624,7 +542,21 @@ async function confirmRepay() {
     if (!state.currentRepayLoan) return;
     
     const loan = state.currentRepayLoan;
-    const total = loan.amount + loan.interest;
+    const isPartial = document.querySelector('input[name="repayType"]:checked').value === 'partial';
+    
+    let repayAmount;
+    if (isPartial) {
+        repayAmount = parseFloat(elements.partialRepayAmount.value) || 0;
+        if (repayAmount <= 0) {
+            showToast(t('toastEnterAmount') || '请输入还款金额');
+            return;
+        }
+        if (repayAmount > state.currentRepayTotal) {
+            repayAmount = state.currentRepayTotal;
+        }
+    } else {
+        repayAmount = state.currentRepayTotal;
+    }
     
     // 显示加载状态
     elements.repayConfirm.classList.add('loading');
@@ -633,15 +565,29 @@ async function confirmRepay() {
     // 模拟还款处理
     await sleep(2000);
     
-    // 更新数据
-    const loanIndex = mockData.activeLoans.findIndex(l => l.id === loan.id);
-    if (loanIndex > -1) {
-        mockData.activeLoans.splice(loanIndex, 1);
-    }
+    const isFullyRepaid = repayAmount >= state.currentRepayTotal - 0.01;
     
-    const historyIndex = mockData.history.findIndex(h => h.id === loan.id);
-    if (historyIndex > -1) {
-        mockData.history[historyIndex].status = 'repaid';
+    if (isFullyRepaid) {
+        // 全额还款 - 从活跃列表移除
+        const loanIndex = mockData.activeLoans.findIndex(l => l.id === loan.id);
+        if (loanIndex > -1) {
+            mockData.activeLoans.splice(loanIndex, 1);
+        }
+        
+        const historyIndex = mockData.history.findIndex(h => h.id === loan.id);
+        if (historyIndex > -1) {
+            mockData.history[historyIndex].status = 'repaid';
+        }
+    } else {
+        // 部分还款 - 更新剩余金额
+        const remaining = state.currentRepayTotal - repayAmount;
+        const loanIndex = mockData.activeLoans.findIndex(l => l.id === loan.id);
+        if (loanIndex > -1) {
+            // 按比例减少本金（简化处理）
+            const ratio = remaining / state.currentRepayTotal;
+            mockData.activeLoans[loanIndex].amount = parseFloat((loan.amount * ratio).toFixed(2));
+            mockData.activeLoans[loanIndex].interest = parseFloat((loan.interest * ratio).toFixed(2));
+        }
     }
     
     // 恢复按钮状态
@@ -651,8 +597,8 @@ async function confirmRepay() {
     // 关闭还款弹窗，显示成功弹窗
     closeRepayModal();
     
-    elements.successAmount.textContent = `${total.toFixed(2)} ${loan.token}`;
-    elements.successCreditChange.textContent = '+5';
+    elements.successAmount.textContent = `${repayAmount.toFixed(2)} ${loan.token}`;
+    elements.successCreditChange.textContent = isFullyRepaid ? '+5' : '+2';
     elements.successModal.classList.add('active');
 }
 
@@ -710,16 +656,13 @@ function openDetailModal(loanId) {
     
     // 更新金额信息
     elements.detailPrincipal.textContent = `${loan.amount.toLocaleString()} ${loan.token}`;
-    elements.detailRate.textContent = `${loan.rate}%`;
-    elements.detailInterest.textContent = `${loan.interest.toFixed(2)} ${loan.token}`;
-    elements.detailPenalty.textContent = `${overdueInfo.penalty.toFixed(2)} ${loan.token}`;
     
     const total = loan.amount + loan.interest + overdueInfo.penalty;
     elements.detailTotal.textContent = `${total.toFixed(2)} ${loan.token}`;
     
-    // 更新时间信息
-    elements.detailBorrowDate.textContent = loan.borrowDate;
-    elements.detailDueDate.textContent = loan.dueDate;
+    // 更新时间信息（显示完整时间和 UTC+0）
+    elements.detailBorrowDate.textContent = formatDateTimeUTC(loan.borrowDate);
+    elements.detailDueDate.textContent = formatDateTimeUTC(loan.dueDate);
     elements.detailTerm.textContent = `${loan.term} 天`;
     
     if (daysLeft > 0) {
@@ -734,16 +677,6 @@ function openDetailModal(loanId) {
         elements.detailDaysLabel.textContent = '逾期天数';
         elements.detailDaysValue.textContent = `${Math.abs(daysLeft)} 天`;
         elements.detailDaysValue.style.color = '#ef4444';
-    }
-    
-    // 更新进度条
-    const progress = daysLeft <= 0 ? 100 : Math.min(100, Math.max(0, ((totalDays - daysLeft) / totalDays) * 100));
-    elements.detailProgressBar.style.width = `${progress}%`;
-    
-    if (daysLeft <= 0 && loan.status !== 'repaid') {
-        elements.detailProgressBar.classList.add('overdue');
-    } else {
-        elements.detailProgressBar.classList.remove('overdue');
     }
     
     // 逾期警告
@@ -768,16 +701,6 @@ function openDetailModal(loanId) {
         ? `${loan.txHash.slice(0, 6)}...${loan.txHash.slice(-4)}`
         : '--';
     elements.detailTxHash.textContent = shortHash;
-    
-    // 还款交易（如果已还款）
-    if (loan.status === 'repaid') {
-        elements.repayTxItem.style.display = 'flex';
-        // 模拟还款交易哈希
-        const repayHash = '0x' + Math.random().toString(16).slice(2, 10) + '...' + Math.random().toString(16).slice(2, 6);
-        document.getElementById('detailRepayTxHash').textContent = repayHash;
-    } else {
-        elements.repayTxItem.style.display = 'none';
-    }
     
     // 还款按钮状态
     if (loan.status === 'repaid') {
@@ -892,6 +815,26 @@ function init() {
     elements.repayCancel.addEventListener('click', closeRepayModal);
     elements.repayModal.querySelector('.modal-overlay').addEventListener('click', closeRepayModal);
     elements.repayConfirm.addEventListener('click', confirmRepay);
+    
+    // 还款方式切换
+    document.querySelectorAll('input[name="repayType"]').forEach(radio => {
+        radio.addEventListener('change', (e) => toggleRepayType(e.target.value));
+    });
+    
+    // 部分还款金额输入
+    elements.partialRepayAmount.addEventListener('input', () => {
+        updateRemainingAmount();
+        // 清除快捷按钮选中状态
+        document.querySelectorAll('.hint-btn').forEach(btn => btn.classList.remove('active'));
+    });
+    
+    // 快捷百分比按钮
+    document.querySelectorAll('.hint-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const percent = parseInt(btn.dataset.percent);
+            setRepayPercent(percent);
+        });
+    });
     
     // 成功弹窗
     elements.successClose.addEventListener('click', closeSuccessModal);

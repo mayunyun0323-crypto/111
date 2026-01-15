@@ -54,12 +54,39 @@ const LANG = {
         footerDocs: '文档',
         footerTerms: '条款',
         footerPrivacy: '隐私',
-        footerContact: '联系我们',
-        
+footerContact: '联系我们',
+
+        // 失信名单入口
+        blacklistEntryTitle: '查看失信名单',
+        blacklistEntryDesc: '查看因逾期被列入黑名单的钱包地址',
+
+        // 失信名单页面
+        blacklist: '失信名单',
+        blacklistTitle: '信用贷失信名单',
+        blacklistDesc: '以下钱包地址因严重逾期（超过30天未还款）已被列入失信名单，借款功能已被禁用',
+        blStatTotal: '失信地址总数',
+        blStatDebt: '待还款总额',
+        blStatAvgDays: '平均逾期天数',
+        searchPlaceholder: '搜索钱包地址...',
+        sortByDate: '按时间排序',
+        sortByAmount: '按金额排序',
+        sortByDays: '按逾期天数',
+        blTableAddress: '钱包地址',
+        blTableDebt: '待还金额',
+        blTableOverdueDays: '逾期天数',
+        blTableBlacklistDate: '列入日期',
+        blTableStatus: '状态',
+        statusBlacklisted: '已列入',
+        statusRemoved: '已移除',
+        noResults: '未找到匹配的地址',
+        disclaimerTitle: '免责声明',
+        disclaimerContent: '本名单仅展示因严重逾期被列入黑名单的钱包地址。如您认为信息有误，请联系客服申诉。还清所有逾期借款并等待30天冷静期后，可申请从名单中移除。',
+
         // 借款页面
         creditScore: '信用评分',
         creditGrade: '信用等级',
-        availableQuota: '可借额度',
+        availableQuota: '您的可借额度',
+        quotaHint: '无需抵押，即时到账',
         annualRate: '年化利率',
         borrowApplication: '借款申请',
         borrowAmount: '借款金额',
@@ -142,10 +169,10 @@ const LANG = {
         
         // 详情弹窗
         loanDetails: '借款详情',
-        amountInfo: '💰 金额信息',
-        timeInfo: '📅 时间信息',
-        progressInfo: '📊 还款进度',
-        txInfo: '🔗 交易信息',
+        amountInfo: '金额信息',
+        timeInfo: '时间信息',
+        progressInfo: '还款进度',
+        txInfo: '交易信息',
         term: '借款期限',
         daysRemaining: '剩余天数',
         daysOverdueLabel: '逾期天数',
@@ -200,9 +227,23 @@ const LANG = {
         tableDueDate: '到期日期',
         tableInterest: '利息',
         tableStatus: '状态',
-        tableAction: '操作',
+tableAction: '操作',
         noHistory: '暂无借款记录',
-        
+
+        // 还款弹窗
+        repayConfirm: '还款确认',
+        loanId: '借款编号',
+        penalty: '滞纳金',
+        repayType: '还款方式',
+        fullRepay: '全额还款',
+        partialRepay: '部分还款',
+        repayAmount: '还款金额',
+        remainingDebt: '还款后剩余',
+        walletBalance: '钱包余额',
+        cancel: '取消',
+        confirmRepay: '确认还款',
+        toastEnterAmount: '请输入还款金额',
+
         // 借款成功
         borrowSuccess: '借款成功',
         borrowSuccessDesc: '已发放至您的钱包',
@@ -268,12 +309,39 @@ const LANG = {
         footerDocs: 'Docs',
         footerTerms: 'Terms',
         footerPrivacy: 'Privacy',
-        footerContact: 'Contact',
-        
+footerContact: 'Contact',
+
+        // Blacklist entry
+        blacklistEntryTitle: 'View Blacklist',
+        blacklistEntryDesc: 'View wallet addresses blacklisted for overdue',
+
+        // Blacklist page
+        blacklist: 'Blacklist',
+        blacklistTitle: 'Credit Loan Blacklist',
+        blacklistDesc: 'The following wallet addresses have been blacklisted due to severe overdue (more than 30 days). Borrowing is disabled.',
+        blStatTotal: 'Total Blacklisted',
+        blStatDebt: 'Total Debt',
+        blStatAvgDays: 'Avg Overdue Days',
+        searchPlaceholder: 'Search wallet address...',
+        sortByDate: 'Sort by Date',
+        sortByAmount: 'Sort by Amount',
+        sortByDays: 'Sort by Days',
+        blTableAddress: 'Wallet Address',
+        blTableDebt: 'Debt Amount',
+        blTableOverdueDays: 'Overdue Days',
+        blTableBlacklistDate: 'Blacklist Date',
+        blTableStatus: 'Status',
+        statusBlacklisted: 'Blacklisted',
+        statusRemoved: 'Removed',
+        noResults: 'No matching address found',
+        disclaimerTitle: 'Disclaimer',
+        disclaimerContent: 'This list only shows wallet addresses blacklisted for severe overdue. If you believe the information is incorrect, please contact support. After repaying all overdue loans and waiting for a 30-day cooling-off period, you can apply to be removed from the list.',
+
         // Borrow page
         creditScore: 'Credit Score',
         creditGrade: 'Credit Grade',
-        availableQuota: 'Available Quota',
+        availableQuota: 'Your Available Credit',
+        quotaHint: 'No collateral, instant transfer',
         annualRate: 'Annual Rate',
         borrowApplication: 'Loan Application',
         borrowAmount: 'Loan Amount',
@@ -356,10 +424,10 @@ const LANG = {
         
         // Detail modal
         loanDetails: 'Loan Details',
-        amountInfo: '💰 Amount Info',
-        timeInfo: '📅 Time Info',
-        progressInfo: '📊 Repay Progress',
-        txInfo: '🔗 Transaction Info',
+        amountInfo: 'Amount Info',
+        timeInfo: 'Time Info',
+        progressInfo: 'Repay Progress',
+        txInfo: 'Transaction Info',
         term: 'Term',
         daysRemaining: 'Days Remaining',
         daysOverdueLabel: 'Days Overdue',
@@ -414,9 +482,23 @@ const LANG = {
         tableDueDate: 'Due Date',
         tableInterest: 'Interest',
         tableStatus: 'Status',
-        tableAction: 'Action',
+tableAction: 'Action',
         noHistory: 'No loan history',
-        
+
+        // Repay modal
+        repayConfirm: 'Repay Confirmation',
+        loanId: 'Loan ID',
+        penalty: 'Late Fee',
+        repayType: 'Repay Type',
+        fullRepay: 'Full Repay',
+        partialRepay: 'Partial Repay',
+        repayAmount: 'Repay Amount',
+        remainingDebt: 'Remaining After',
+        walletBalance: 'Wallet Balance',
+        cancel: 'Cancel',
+        confirmRepay: 'Confirm Repay',
+        toastEnterAmount: 'Please enter repay amount',
+
         // Borrow success
         borrowSuccess: 'Borrow Success',
         borrowSuccessDesc: 'sent to your wallet',

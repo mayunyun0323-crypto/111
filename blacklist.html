@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>失信名单 - CryptoCredit</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="blacklist.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">CryptoCredit</span>
+            </a>
+            <div class="navbar-right">
+                <a href="borrow.html" class="nav-link" data-lang="borrow">借款</a>
+                <a href="dashboard.html" class="nav-link" data-lang="dashboard">个人中心</a>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang-switch="zh" onclick="switchLanguage('zh')">中</button>
+                    <button class="lang-btn" data-lang-switch="en" onclick="switchLanguage('en')">EN</button>
+                </div>
+                <button class="btn btn-outline" id="connectWallet">
+                    <span class="wallet-icon">◉</span>
+                    <span id="walletText" data-lang="connectWallet">连接钱包</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="blacklist-page">
+        <div class="container">
+            <!-- 页面标题 -->
+            <div class="page-header">
+                <h1 class="page-title" data-lang="blacklistTitle">信用贷失信名单</h1>
+                <p class="page-desc" data-lang="blacklistDesc">
+                    以下钱包地址因严重逾期（超过30天未还款）已被列入失信名单，借款功能已被禁用
+                </p>
+            </div>
+
+            <!-- 统计信息 -->
+            <div class="blacklist-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalBlacklisted">128</div>
+                    <div class="stat-name" data-lang="blStatTotal">失信地址总数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalDebt">$1.2M</div>
+                    <div class="stat-name" data-lang="blStatDebt">待还款总额</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="avgOverdue">45</div>
+                    <div class="stat-name" data-lang="blStatAvgDays">平均逾期天数</div>
+                </div>
+            </div>
+
+            <!-- 搜索和筛选 -->
+            <div class="blacklist-filters">
+                <div class="search-box">
+                    <input type="text" class="search-input" id="searchAddress" placeholder="搜索钱包地址..." data-lang-placeholder="searchPlaceholder">
+                    <button class="search-btn" id="searchBtn">
+                        <span class="search-icon">⌕</span>
+                    </button>
+                </div>
+                <div class="filter-options">
+                    <select class="filter-select" id="sortFilter">
+                        <option value="date" data-lang="sortByDate">按时间排序</option>
+                        <option value="amount" data-lang="sortByAmount">按金额排序</option>
+                        <option value="days" data-lang="sortByDays">按逾期天数</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 失信名单表格 -->
+            <div class="blacklist-table-wrapper">
+                <table class="blacklist-table">
+                    <thead>
+                        <tr>
+                            <th data-lang="blTableAddress">钱包地址</th>
+                            <th data-lang="blTableDebt">待还金额</th>
+                            <th data-lang="blTableOverdueDays">逾期天数</th>
+                            <th data-lang="blTableBlacklistDate">列入日期</th>
+                            <th data-lang="blTableStatus">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blacklistTableBody">
+                        <!-- 通过 JS 动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分页 -->
+            <div class="pagination" id="pagination">
+                <button class="page-btn" id="prevPage" disabled>←</button>
+                <span class="page-info">
+                    <span id="currentPage">1</span> / <span id="totalPages">5</span>
+                </span>
+                <button class="page-btn" id="nextPage">→</button>
+            </div>
+
+            <!-- 免责声明 -->
+            <div class="disclaimer">
+                <h4 data-lang="disclaimerTitle">免责声明</h4>
+                <p data-lang="disclaimerContent">
+                    本名单仅展示因严重逾期被列入黑名单的钱包地址。如您认为信息有误，请联系客服申诉。
+                    还清所有逾期借款并等待30天冷静期后，可申请从名单中移除。
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">CryptoCredit</span>
+            </div>
+            <div class="footer-links">
+                <a href="blacklist.html" data-lang="blacklist">失信名单</a>
+                <a href="#" data-lang="footerDocs">文档</a>
+                <a href="#" data-lang="footerTerms">条款</a>
+                <a href="#" data-lang="footerPrivacy">隐私</a>
+                <a href="#" data-lang="footerContact">联系我们</a>
+            </div>
+            <div class="footer-copy">
+                © 2026 CryptoCredit. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="lang.js"></script>
+    <script src="blacklist.js"></script>
+</body>
+</html>

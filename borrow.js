@@ -43,6 +43,9 @@ const elements = {
     blacklistDebt: document.getElementById('blacklistDebt'),
     blacklistLoans: document.getElementById('blacklistLoans'),
     
+    // 可借额度
+    quotaValue: document.getElementById('quotaValue'),
+    
     // 借款表单
     borrowAmount: document.getElementById('borrowAmount'),
     amountSlider: document.getElementById('amountSlider'),
@@ -145,6 +148,35 @@ function showBorrowInterface() {
     elements.connectPrompt.style.display = 'none';
     elements.blacklistPrompt.style.display = 'none';
     elements.borrowMain.style.display = 'block';
+    
+    // 更新可借额度显示（带动画）
+    animateQuotaValue(state.maxQuota);
+}
+
+/**
+ * 可借额度数字动画
+ */
+function animateQuotaValue(target) {
+    const duration = 1200;
+    const start = 0;
+    const startTime = performance.now();
+    
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // 缓动函数
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(start + (target - start) * easeOut);
+        
+        elements.quotaValue.textContent = current.toLocaleString();
+        
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+    
+    requestAnimationFrame(update);
 }
 
 /**

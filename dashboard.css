@@ -44,7 +44,17 @@
 }
 
 .prompt-icon {
-    font-size: 48px;
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-accent);
+    background: rgba(34, 211, 238, 0.1);
+    border: 2px solid rgba(34, 211, 238, 0.3);
+    border-radius: 50%;
     margin-bottom: 24px;
 }
 
@@ -59,82 +69,56 @@
     line-height: 1.6;
 }
 
-/* ==================== 概览卡片 ==================== */
-.overview-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+/* ==================== 待还款总额卡片 ==================== */
+.total-debt-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 40px;
+    background: linear-gradient(135deg, var(--color-card) 0%, rgba(99, 102, 241, 0.1) 100%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
     margin-bottom: 24px;
 }
 
-.overview-card {
+.debt-card-content {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 24px;
-    background: var(--color-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--border-radius-lg);
-    transition: var(--transition);
+    gap: 20px;
 }
 
-.overview-card:hover {
-    border-color: var(--color-primary);
+.debt-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-accent);
+    background: rgba(99, 102, 241, 0.15);
+    border: 2px solid rgba(99, 102, 241, 0.3);
+    border-radius: 16px;
 }
 
-.card-icon {
-    font-size: 32px;
-}
-
-.card-info {
+.debt-info {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
 }
 
-.card-label {
-    font-size: 13px;
+.debt-label {
+    font-size: 14px;
     color: var(--color-text-secondary);
 }
 
-.card-value {
-    font-size: 22px;
+.debt-value {
+    font-size: 36px;
     font-weight: 700;
-}
-
-.credit-card {
-    position: relative;
-}
-
-.credit-badge {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    padding: 4px 12px;
-    font-size: 12px;
-    font-weight: 600;
-    border-radius: 20px;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-    color: white;
-}
-
-.credit-badge.grade-a { background: linear-gradient(135deg, #22c55e, #16a34a); }
-.credit-badge.grade-b { background: linear-gradient(135deg, #3b82f6, #2563eb); }
-.credit-badge.grade-c { background: linear-gradient(135deg, #f59e0b, #d97706); }
-.credit-badge.grade-d { background: linear-gradient(135deg, #ef4444, #dc2626); }
-.credit-badge.grade-blacklist { 
-    background: linear-gradient(135deg, #1f1f1f, #0a0a0a); 
-    border: 1px solid #ef4444;
-}
-
-/* 黑名单时信用卡片样式 */
-.overview-card.credit-card.blacklisted {
-    border-color: rgba(239, 68, 68, 0.5);
-    background: linear-gradient(135deg, var(--color-card) 0%, rgba(239, 68, 68, 0.1) 100%);
-}
-
-.overview-card.credit-card.blacklisted .card-value {
-    color: #ef4444;
+    background: linear-gradient(135deg, #fff 0%, var(--color-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* ==================== 黑名单状态卡片 ==================== */
@@ -831,6 +815,157 @@
     color: var(--color-primary-light);
 }
 
+/* 还款方式选择 */
+.repay-type-section {
+    margin-bottom: 20px;
+}
+
+.repay-type-label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin-bottom: 12px;
+}
+
+.repay-type-options {
+    display: flex;
+    gap: 12px;
+}
+
+.repay-type-option {
+    flex: 1;
+}
+
+.repay-type-option input {
+    display: none;
+}
+
+.repay-type-option .type-btn {
+    display: block;
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.repay-type-option input:checked + .type-btn {
+    color: var(--color-accent);
+    background: rgba(34, 211, 238, 0.1);
+    border-color: var(--color-accent);
+}
+
+.repay-type-option .type-btn:hover {
+    border-color: var(--color-text-secondary);
+}
+
+/* 部分还款金额输入 */
+.partial-repay-section {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: var(--color-bg);
+    border-radius: var(--border-radius);
+}
+
+.repay-amount-label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin-bottom: 12px;
+}
+
+.repay-amount-input-wrapper {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.repay-amount-input {
+    width: 100%;
+    padding: 16px 80px 16px 16px;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-text);
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: var(--transition);
+}
+
+.repay-amount-input:focus {
+    border-color: var(--color-accent);
+}
+
+.repay-amount-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.repay-amount-suffix {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.repay-amount-hints {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.hint-btn {
+    flex: 1;
+    padding: 8px;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.hint-btn:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.hint-btn.active {
+    color: var(--color-accent);
+    background: rgba(34, 211, 238, 0.1);
+    border-color: var(--color-accent);
+}
+
+.repay-remaining {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px dashed var(--color-border);
+}
+
+.remaining-label {
+    font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+.remaining-value {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+/* 确认按钮金额显示 */
+.repay-confirm-amount {
+    margin-left: 8px;
+    padding-left: 8px;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 .modal-footer {
     display: flex;
     gap: 12px;
@@ -920,6 +1055,35 @@
     border-radius: var(--border-radius);
 }
 
+.detail-amount-row {
+    display: flex;
+    gap: 24px;
+    background: var(--color-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+}
+
+.detail-amount-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail-amount-item .detail-label {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.detail-amount-item .detail-value {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.detail-amount-item.highlight .detail-value {
+    color: var(--color-accent);
+}
+
 .detail-item {
     display: flex;
     flex-direction: column;
@@ -997,7 +1161,16 @@
 }
 
 .warning-icon {
-    font-size: 24px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.15);
+    border-radius: 50%;
 }
 
 .warning-content {
@@ -1018,6 +1191,45 @@
 }
 
 /* 交易信息 */
+/* 弱化的交易信息 */
+.detail-tx-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    margin-top: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid var(--color-border);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.detail-tx-footer .tx-label {
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.tx-hash-inline {
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--color-text-secondary);
+}
+
+.copy-btn-small {
+    padding: 4px 8px;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.copy-btn-small:hover {
+    color: var(--color-text);
+    border-color: var(--color-text-secondary);
+}
+
 .detail-tx {
     background: var(--color-bg);
     padding: 16px;
@@ -1158,11 +1370,24 @@
 }
 
 /* ==================== 响应式设计 ==================== */
-@media (max-width: 1100px) {
-    .overview-cards {
-        grid-template-columns: repeat(2, 1fr);
+@media (max-width: 768px) {
+    .total-debt-card {
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px;
+        text-align: center;
     }
     
+    .debt-card-content {
+        flex-direction: column;
+    }
+    
+    .debt-value {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 1100px) {
     .dashboard-grid {
         grid-template-columns: 1fr;
     }

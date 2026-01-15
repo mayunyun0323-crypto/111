@@ -32,7 +32,7 @@
     <!-- 黑名单警告横幅 -->
     <div class="blacklist-banner" id="blacklistBanner">
         <div class="container">
-            <span class="banner-icon">⚠️</span>
+            <span class="banner-icon">!</span>
             <span class="banner-text">
                 <span data-lang="blacklistBanner">您的账户已被列入黑名单，借款功能已禁用。请还清逾期借款后等待解除。</span>
                 <a href="dashboard.html" class="banner-link" data-lang="blacklistBannerLink">查看详情</a>
@@ -64,21 +64,21 @@
             <!-- 特点展示 -->
             <div class="features">
                 <div class="feature-item">
-                    <div class="feature-icon">🔓</div>
+                    <div class="feature-icon">01</div>
                     <div class="feature-text">
                         <span class="feature-title" data-lang="featureNoCollateral">无需抵押</span>
                         <span class="feature-desc" data-lang="featureNoCollateralDesc">信用借款，无需锁仓</span>
                     </div>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">⚡</div>
+                    <div class="feature-icon">02</div>
                     <div class="feature-text">
                         <span class="feature-title" data-lang="featureInstant">秒级到账</span>
                         <span class="feature-desc" data-lang="featureInstantDesc">审核通过即时放款</span>
                     </div>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon">03</div>
                     <div class="feature-text">
                         <span class="feature-title" data-lang="featureFlexible">灵活还款</span>
                         <span class="feature-desc" data-lang="featureFlexibleDesc">支持提前还款</span>
@@ -147,6 +147,20 @@
         </div>
     </section>
 
+    <!-- 失信名单入口 -->
+    <section class="blacklist-entry">
+        <div class="container">
+            <a href="blacklist.html" class="blacklist-entry-card">
+                <div class="entry-icon">!</div>
+                <div class="entry-content">
+                    <h3 class="entry-title" data-lang="blacklistEntryTitle">查看失信名单</h3>
+                    <p class="entry-desc" data-lang="blacklistEntryDesc">查看因逾期被列入黑名单的钱包地址</p>
+                </div>
+                <span class="entry-arrow">→</span>
+            </a>
+        </div>
+    </section>
+
     <!-- 页脚 -->
     <footer class="footer">
         <div class="container footer-content">
@@ -155,6 +169,7 @@
                 <span class="logo-text">CryptoCredit</span>
             </div>
             <div class="footer-links">
+                <a href="blacklist.html" data-lang="blacklist">失信名单</a>
                 <a href="#" data-lang="footerDocs">文档</a>
                 <a href="#" data-lang="footerTerms">条款</a>
                 <a href="#" data-lang="footerPrivacy">隐私</a>

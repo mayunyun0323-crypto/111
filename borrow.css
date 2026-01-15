@@ -25,7 +25,17 @@
 }
 
 .blacklist-icon {
-    font-size: 64px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: 700;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+    border: 2px solid rgba(239, 68, 68, 0.3);
+    border-radius: 50%;
     margin-bottom: 20px;
 }
 
@@ -123,7 +133,17 @@
 }
 
 .prompt-icon {
-    font-size: 48px;
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-accent);
+    background: rgba(34, 211, 238, 0.1);
+    border: 2px solid rgba(34, 211, 238, 0.3);
+    border-radius: 50%;
     margin-bottom: 24px;
 }
 
@@ -136,6 +156,113 @@
     color: var(--color-text-secondary);
     margin-bottom: 32px;
     line-height: 1.6;
+}
+
+/* ==================== 可借额度突出展示 ==================== */
+.quota-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 40px;
+    margin-bottom: 32px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(34, 211, 238, 0.1) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+}
+
+.quota-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.quota-label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.quota-amount {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.quota-value {
+    font-size: 56px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, var(--color-accent) 50%, var(--color-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.quota-unit {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+}
+
+.quota-hint {
+    font-size: 13px;
+    color: var(--color-accent);
+    padding: 6px 16px;
+    background: rgba(34, 211, 238, 0.1);
+    border-radius: 50px;
+    display: inline-block;
+}
+
+/* 装饰环 */
+.quota-decoration {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    pointer-events: none;
+}
+
+.quota-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.quota-ring:nth-child(1) {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    animation: pulse-ring 3s ease-in-out infinite;
+}
+
+.quota-ring:nth-child(2) {
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    border-color: rgba(34, 211, 238, 0.15);
+    animation: pulse-ring 3s ease-in-out infinite 0.5s;
+}
+
+@keyframes pulse-ring {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
 }
 
 /* ==================== 借款主界面布局 ==================== */
@@ -691,15 +818,33 @@
     .borrow-page {
         padding-top: 80px;
     }
+
+    .quota-hero {
+        padding: 32px 24px;
+        margin-bottom: 24px;
+    }
     
+    .quota-value {
+        font-size: 42px;
+    }
+    
+    .quota-unit {
+        font-size: 18px;
+    }
+    
+    .quota-decoration {
+        width: 200px;
+        height: 200px;
+    }
+
     .section-card {
         padding: 20px;
     }
-    
+
     .term-options {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .token-options {
         grid-template-columns: 1fr;
     }
