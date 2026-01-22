@@ -225,7 +225,6 @@ const elements = {
     // 成功弹窗
     successModal: document.getElementById('successModal'),
     successAmount: document.getElementById('successAmount'),
-    successCreditChange: document.getElementById('successCreditChange'),
     successClose: document.getElementById('successClose'),
     
     // 详情弹窗
@@ -598,7 +597,6 @@ async function confirmRepay() {
     closeRepayModal();
     
     elements.successAmount.textContent = `${repayAmount.toFixed(2)} ${loan.token}`;
-    elements.successCreditChange.textContent = isFullyRepaid ? '+5' : '+2';
     elements.successModal.classList.add('active');
 }
 

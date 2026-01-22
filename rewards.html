@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>激励记录 - CryptoCredit</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="rewards.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">CryptoCredit</span>
+            </a>
+            <div class="navbar-right">
+                <a href="borrow.html" class="nav-link" data-lang="borrow">借款</a>
+                <a href="dashboard.html" class="nav-link" data-lang="dashboard">个人中心</a>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang-switch="zh" onclick="switchLanguage('zh')">中</button>
+                    <button class="lang-btn" data-lang-switch="en" onclick="switchLanguage('en')">EN</button>
+                </div>
+                <button class="btn btn-outline" id="connectWallet">
+                    <span class="wallet-icon">◉</span>
+                    <span id="walletText" data-lang="connectWallet">连接钱包</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="rewards-page">
+        <div class="container">
+            <!-- 页面标题 -->
+            <div class="page-header">
+                <h1 class="page-title">Repay Emission</h1>
+                <p class="page-subtitle" data-lang="rewardsPageDesc">还款即可获得激励排放资格，参与每日及每周的 LISTA 代币分配</p>
+            </div>
+
+            <!-- 激励排放信息 -->
+            <div class="emission-pools">
+                <div class="emission-pool daily">
+                    <div class="pool-header">
+                        <span class="pool-badge" data-lang="dailyEmission">Daily</span>
+                        <span class="pool-name" data-lang="dailyIncentive">每日激励</span>
+                    </div>
+                    <div class="pool-amount">1,000 LISTA</div>
+                    <div class="pool-time" data-lang="dailyDistTime">每日 08:00 (UTC) 分配</div>
+                </div>
+                <div class="emission-pool weekly">
+                    <div class="pool-header">
+                        <span class="pool-badge" data-lang="weeklyEmission">Weekly</span>
+                        <span class="pool-name" data-lang="weeklyIncentive">每周激励</span>
+                    </div>
+                    <div class="pool-amount">10,000 LISTA</div>
+                    <div class="pool-time" data-lang="weeklyDistTime">每周一 08:00 (UTC) 分配</div>
+                </div>
+            </div>
+
+            <!-- 标签页切换 -->
+            <div class="rewards-tabs">
+                <button class="tab-btn active" data-tab="daily" data-lang="dailyRewards">每日激励</button>
+                <button class="tab-btn" data-tab="weekly" data-lang="weeklyRewards">每周激励</button>
+            </div>
+
+            <!-- 每日激励记录 -->
+            <div class="rewards-panel active" id="dailyPanel">
+                <table class="rewards-table">
+                    <thead>
+                        <tr>
+                            <th data-lang="distDate">分配日期</th>
+                            <th data-lang="recipientAddress">获得地址</th>
+                            <th data-lang="rewardAmount">激励额度</th>
+                            <th data-lang="claimStatus">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dailyRewardsBody">
+                        <!-- 动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 每周激励记录 -->
+            <div class="rewards-panel" id="weeklyPanel">
+                <table class="rewards-table">
+                    <thead>
+                        <tr>
+                            <th data-lang="distWeek">分配周次</th>
+                            <th data-lang="recipientAddress">获得地址</th>
+                            <th data-lang="rewardAmount">激励额度</th>
+                            <th data-lang="claimStatus">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody id="weeklyRewardsBody">
+                        <!-- 动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 参与提示 -->
+            <div class="join-cta">
+                <p data-lang="emissionCta">按时还款即可加入激励排放池，获取 LISTA 代币奖励！</p>
+                <a href="dashboard.html" class="btn btn-primary" data-lang="goToRepay">前往还款</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">CryptoCredit</span>
+            </div>
+            <div class="footer-links">
+                <a href="blacklist.html" data-lang="blacklist">失信名单</a>
+                <a href="#" data-lang="footerDocs">文档</a>
+                <a href="#" data-lang="footerTerms">条款</a>
+                <a href="#" data-lang="footerPrivacy">隐私</a>
+                <a href="#" data-lang="footerContact">联系我们</a>
+            </div>
+            <div class="footer-copy">
+                © 2026 CryptoCredit. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="lang.js"></script>
+    <script src="rewards.js"></script>
+</body>
+</html>

@@ -481,6 +481,246 @@ body.is-blacklisted .dashboard-page {
     line-height: 1.6;
 }
 
+/* ==================== 激励排放模块 Repay Emission ==================== */
+.emission-section {
+    padding: 60px 0;
+    background: linear-gradient(180deg, var(--color-bg) 0%, rgba(99, 102, 241, 0.05) 100%);
+}
+
+.emission-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+}
+
+.emission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 32px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(34, 211, 238, 0.08) 100%);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.emission-title {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+}
+
+.emission-subtitle {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.emission-rewards {
+    display: flex;
+    gap: 12px;
+}
+
+.reward-tag {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.reward-tag.daily {
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+}
+
+.reward-tag.weekly {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.reward-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.reward-tag.daily .reward-label {
+    color: var(--color-accent);
+}
+
+.reward-tag.weekly .reward-label {
+    color: var(--color-primary-light);
+}
+
+.reward-amount {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.emission-body {
+    padding: 28px 32px;
+}
+
+.emission-stats {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 24px;
+}
+
+.emission-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.emission-stat .stat-num {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.emission-stat .stat-label {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+/* 激励分配滚动广播 */
+.emission-marquee {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--color-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.marquee-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    padding-right: 16px;
+    border-right: 1px solid var(--color-border);
+}
+
+.marquee-wrapper {
+    flex: 1;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-content {
+    display: flex;
+    gap: 32px;
+    animation: marquee 30s linear infinite;
+}
+
+.reward-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.reward-address {
+    font-family: monospace;
+    font-size: 13px;
+    color: var(--color-text);
+}
+
+.reward-text {
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.reward-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.emission-footer {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px 32px;
+    border-top: 1px solid var(--color-border);
+}
+
+.emission-btn {
+    min-width: 160px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .emission-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding: 24px;
+    }
+    
+    .emission-title {
+        font-size: 24px;
+    }
+    
+    .emission-rewards {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .emission-body {
+        padding: 24px;
+    }
+    
+    .emission-stats {
+        justify-content: center;
+    }
+    
+    .emission-stat .stat-num {
+        font-size: 26px;
+    }
+    
+    .emission-footer {
+        flex-direction: column;
+        padding: 20px 24px;
+    }
+    
+    .emission-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .emission-marquee {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .marquee-label {
+        border-right: none;
+        padding-right: 0;
+    }
+}
+
 /* ==================== 失信名单入口 ==================== */
 .blacklist-entry {
     padding: 40px 0;

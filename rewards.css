@@ -1,0 +1,255 @@
+/* ==================== 激励记录页面 ==================== */
+.rewards-page {
+    min-height: calc(100vh - 200px);
+    padding: 120px 0 60px;
+    background: var(--color-bg);
+}
+
+/* 页面标题 */
+.page-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.page-title {
+    font-size: 42px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+}
+
+.page-subtitle {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+}
+
+/* 激励排放信息 */
+.emission-pools {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.emission-pool {
+    padding: 32px;
+    border-radius: var(--border-radius-lg);
+    text-align: center;
+}
+
+.emission-pool.daily {
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, rgba(34, 211, 238, 0.05) 100%);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+}
+
+.emission-pool.weekly {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.pool-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.pool-badge {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 50px;
+}
+
+.emission-pool.daily .pool-badge {
+    color: var(--color-accent);
+    background: rgba(34, 211, 238, 0.2);
+}
+
+.emission-pool.weekly .pool-badge {
+    color: var(--color-primary-light);
+    background: rgba(99, 102, 241, 0.2);
+}
+
+.pool-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.pool-amount {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.emission-pool.daily .pool-amount {
+    color: var(--color-accent);
+}
+
+.emission-pool.weekly .pool-amount {
+    color: var(--color-primary-light);
+}
+
+.pool-time {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+/* 标签页 */
+.rewards-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding: 4px;
+    background: var(--color-card);
+    border-radius: var(--border-radius);
+    width: fit-content;
+}
+
+.tab-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.tab-btn:hover {
+    color: var(--color-text);
+}
+
+.tab-btn.active {
+    color: var(--color-text);
+    background: var(--color-bg);
+}
+
+/* 记录面板 */
+.rewards-panel {
+    display: none;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.rewards-panel.active {
+    display: block;
+}
+
+/* 表格 */
+.rewards-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rewards-table th,
+.rewards-table td {
+    padding: 16px 24px;
+    text-align: left;
+}
+
+.rewards-table th {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.rewards-table td {
+    font-size: 14px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.rewards-table tr:last-child td {
+    border-bottom: none;
+}
+
+.rewards-table tr:hover td {
+    background: rgba(99, 102, 241, 0.03);
+}
+
+.recipient-address {
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.reward-cell {
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.status-claimed {
+    color: #22c55e;
+    font-size: 13px;
+}
+
+.status-pending {
+    color: var(--color-text-muted);
+    font-size: 13px;
+}
+
+/* 参与提示 */
+.join-cta {
+    text-align: center;
+    padding: 40px;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+}
+
+.join-cta p {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    margin-bottom: 20px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .rewards-page {
+        padding: 100px 0 40px;
+    }
+    
+    .page-title {
+        font-size: 32px;
+    }
+    
+    .emission-pools {
+        grid-template-columns: 1fr;
+    }
+    
+    .pool-amount {
+        font-size: 28px;
+    }
+    
+    .rewards-tabs {
+        width: 100%;
+    }
+    
+    .tab-btn {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .rewards-table th,
+    .rewards-table td {
+        padding: 12px 16px;
+    }
+    
+    .rewards-table th:nth-child(4),
+    .rewards-table td:nth-child(4) {
+        display: none;
+    }
+}

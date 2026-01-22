@@ -274,21 +274,43 @@
     <!-- 还款成功弹窗 -->
     <div class="modal" id="successModal">
         <div class="modal-overlay"></div>
-        <div class="modal-content">
+        <div class="modal-content success-modal">
             <div class="modal-icon success">✔</div>
-            <h3 class="modal-title">还款成功</h3>
-            <p class="modal-desc">您已成功还款，感谢您的信任！</p>
+            <h3 class="modal-title" data-lang="repaySuccess">还款成功</h3>
+            <p class="modal-desc" data-lang="repaySuccessDesc">您已成功还款，感谢您的信任！</p>
             <div class="success-info">
                 <div class="info-row">
-                    <span>还款金额</span>
+                    <span data-lang="repayAmount">还款金额</span>
                     <span id="successAmount">-- USDT</span>
                 </div>
-                <div class="info-row">
-                    <span>信用分变动</span>
-                    <span class="positive" id="successCreditChange">+5</span>
+            </div>
+            
+            <!-- 激励提示 -->
+            <div class="emission-notice">
+                <div class="emission-notice-header">
+                    <span class="emission-icon">✦</span>
+                    <span data-lang="emissionJoined">已加入激励排放池！</span>
+                </div>
+                <div class="emission-notice-body">
+                    <div class="emission-notice-item">
+                        <span class="notice-badge daily" data-lang="dailyEmissionReward">每日激励</span>
+                        <span class="notice-reward">1,000 LISTA</span>
+                    </div>
+                    <div class="emission-notice-item">
+                        <span class="notice-badge weekly" data-lang="weeklyEmissionReward">每周激励</span>
+                        <span class="notice-reward">10,000 LISTA</span>
+                    </div>
+                </div>
+                <div class="emission-notice-footer">
+                    <span class="notice-time-icon">⏰</span>
+                    <span data-lang="emissionReminder">分配时间：明日 / 下周一 08:00 (UTC)</span>
                 </div>
             </div>
-            <button class="btn btn-primary btn-block" id="successClose">完成</button>
+            
+            <div class="success-actions">
+                <a href="rewards.html" class="btn btn-outline" data-lang="viewRewards">查看激励记录</a>
+                <button class="btn btn-primary" id="successClose" data-lang="done">完成</button>
+            </div>
         </div>
     </div>
 
